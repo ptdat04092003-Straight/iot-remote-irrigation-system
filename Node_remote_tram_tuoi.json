@@ -1,0 +1,4314 @@
+[
+    {
+        "id": "13cc7814494b07cd",
+        "type": "tab",
+        "label": "Tram Tuoi Tieu",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "58227661c5307c67",
+        "type": "ui_text",
+        "z": "13cc7814494b07cd",
+        "group": "",
+        "order": 27,
+        "width": 22,
+        "height": 1,
+        "name": "",
+        "label": "Sinh Viên thực hiện: Hà Minh Đạt, Phạm Tiến Đạt, Phạm Tuấn Đạt, Hoàng Lê Bảo Duy",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 800,
+        "y": 2860,
+        "wires": []
+    },
+    {
+        "id": "f6d6ac566b0e685f",
+        "type": "ui_text",
+        "z": "13cc7814494b07cd",
+        "group": "",
+        "order": 1,
+        "width": 4,
+        "height": 2,
+        "name": "",
+        "label": "------",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 530,
+        "y": 2800,
+        "wires": []
+    },
+    {
+        "id": "http-in-video",
+        "type": "http in",
+        "z": "13cc7814494b07cd",
+        "name": "GET /video.mp4",
+        "url": "/video.mp4",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 357.99999237060547,
+        "y": 1270.0000200271606,
+        "wires": [
+            [
+                "set-filename"
+            ]
+        ]
+    },
+    {
+        "id": "set-filename",
+        "type": "change",
+        "z": "13cc7814494b07cd",
+        "name": "đặt đường dẫn file",
+        "rules": [
+            {
+                "t": "set",
+                "p": "filename",
+                "pt": "msg",
+                "to": "C:\\\\Users\\\\<ten>\\\\Videos\\\\hcm-skyline.mp4",
+                "tot": "str"
+            }
+        ],
+        "x": 567.9999923706055,
+        "y": 1270.0000200271606,
+        "wires": [
+            [
+                "file-in-video"
+            ]
+        ]
+    },
+    {
+        "id": "file-in-video",
+        "type": "file in",
+        "z": "13cc7814494b07cd",
+        "name": "đọc file (Buffer)",
+        "filename": "filename",
+        "filenameType": "msg",
+        "format": "",
+        "chunk": false,
+        "sendError": true,
+        "encoding": "none",
+        "x": 807.9999923706055,
+        "y": 1270.0000200271606,
+        "wires": [
+            [
+                "set-headers"
+            ]
+        ]
+    },
+    {
+        "id": "set-headers",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Content-Type + Cache",
+        "func": "msg.headers = {\n  \"Content-Type\": \"video/mp4\",\n  \"Cache-Control\": \"public, max-age=3600\"\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1027.9999923706055,
+        "y": 1270.0000200271606,
+        "wires": [
+            [
+                "http-resp-video"
+            ]
+        ]
+    },
+    {
+        "id": "http-resp-video",
+        "type": "http response",
+        "z": "13cc7814494b07cd",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1237.9999923706055,
+        "y": 1270.0000200271606,
+        "wires": []
+    },
+    {
+        "id": "2907b784e62037dc",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/tramHCM/tocdonhan",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1071.9999771118164,
+        "y": 2827.999855041504,
+        "wires": [
+            [
+                "8f7213c8bfc63989"
+            ]
+        ]
+    },
+    {
+        "id": "8f7213c8bfc63989",
+        "type": "ui_text",
+        "z": "13cc7814494b07cd",
+        "group": "",
+        "order": 24,
+        "width": 7,
+        "height": 2,
+        "name": "Tốc độ bơm hiển thị",
+        "label": "TỐC ĐỘ BƠM",
+        "format": "{{msg.payload}}%",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1240,
+        "y": 2820,
+        "wires": []
+    },
+    {
+        "id": "7db7d2f2476f0885",
+        "type": "ui_switch",
+        "z": "13cc7814494b07cd",
+        "name": "Auto Mode",
+        "label": "chế độ auto",
+        "tooltip": "",
+        "group": "",
+        "order": 4,
+        "width": 3,
+        "height": 1,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 410,
+        "y": 2860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ebebdd5f08650fb3",
+        "type": "ui_gauge",
+        "z": "13cc7814494b07cd",
+        "name": "Độ ẩm đất",
+        "group": "3fbc50ed6e69ad2f",
+        "order": 3,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Độ ẩm đất",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 100,
+        "colors": [
+            "#e82c17",
+            "#2ecc71",
+            "#b9f80d"
+        ],
+        "seg1": "35",
+        "seg2": "90",
+        "diff": false,
+        "className": "",
+        "x": 1490.0000534057617,
+        "y": 1431.000020980835,
+        "wires": []
+    },
+    {
+        "id": "3f397b23c2de95a3",
+        "type": "ui_slider",
+        "z": "13cc7814494b07cd",
+        "name": "Điều chỉnh tốc độ",
+        "label": "Tốc độ bơm chỉnh tay",
+        "tooltip": "",
+        "group": "c96834b4b3c54815",
+        "order": 7,
+        "width": 7,
+        "height": 2,
+        "passthru": true,
+        "outs": "all",
+        "topic": "manual_speed",
+        "topicType": "str",
+        "min": 0,
+        "max": 100,
+        "step": "1",
+        "className": "",
+        "x": 1039.0000534057617,
+        "y": 1491.000020980835,
+        "wires": [
+            [
+                "fdbb93a6cfb9b2de",
+                "18eac73826287707"
+            ]
+        ]
+    },
+    {
+        "id": "1be8ac24030e30e4",
+        "type": "ui_numeric",
+        "z": "13cc7814494b07cd",
+        "name": "độ âm MIN",
+        "label": "Độ ẩm tối thiểu",
+        "tooltip": "",
+        "group": "841cf1e620ca3cfb",
+        "order": 3,
+        "width": 7,
+        "height": 1,
+        "wrap": false,
+        "passthru": true,
+        "topic": "humidityMin",
+        "topicType": "str",
+        "format": "",
+        "min": "0",
+        "max": "100",
+        "step": "",
+        "className": "",
+        "x": 1032.0000686645508,
+        "y": 1777.999997138977,
+        "wires": [
+            [
+                "eae5e0b97d1cf77c",
+                "8c0e3c5804e7cb58"
+            ]
+        ]
+    },
+    {
+        "id": "d4c3076f1683f1f9",
+        "type": "ui_numeric",
+        "z": "13cc7814494b07cd",
+        "name": "độ ẩm MAX",
+        "label": "Độ ẩm tối đa",
+        "tooltip": "",
+        "group": "841cf1e620ca3cfb",
+        "order": 4,
+        "width": 7,
+        "height": 1,
+        "wrap": false,
+        "passthru": true,
+        "topic": "humidityMax",
+        "topicType": "str",
+        "format": "",
+        "min": "0",
+        "max": "100",
+        "step": "",
+        "className": "",
+        "x": 1032.0000686645508,
+        "y": 1717.999997138977,
+        "wires": [
+            [
+                "d2d3f8d424001976",
+                "867243b513edc61b"
+            ]
+        ]
+    },
+    {
+        "id": "153ee70b076deb18",
+        "type": "ui_numeric",
+        "z": "13cc7814494b07cd",
+        "name": "Nhiệt độ MIN",
+        "label": "Nhiệt độ tối thiểu (°C)",
+        "tooltip": "",
+        "group": "841cf1e620ca3cfb",
+        "order": 5,
+        "width": 7,
+        "height": 1,
+        "wrap": false,
+        "passthru": true,
+        "topic": "temperatureMin",
+        "topicType": "str",
+        "format": "",
+        "min": "0",
+        "max": "100",
+        "step": "",
+        "className": "",
+        "x": 1032.0000686645508,
+        "y": 1597.999997138977,
+        "wires": [
+            [
+                "b53b9e1b3c8cee13",
+                "0d743dd52538b3c4"
+            ]
+        ]
+    },
+    {
+        "id": "fec4b54d05de1419",
+        "type": "ui_numeric",
+        "z": "13cc7814494b07cd",
+        "name": "Nhiệt MAX",
+        "label": "Nhiệt độ tối đa (°C)",
+        "tooltip": "",
+        "group": "841cf1e620ca3cfb",
+        "order": 6,
+        "width": 7,
+        "height": 1,
+        "wrap": false,
+        "passthru": true,
+        "topic": "temperatureMax",
+        "topicType": "str",
+        "format": "",
+        "min": "0",
+        "max": "100",
+        "step": "",
+        "className": "",
+        "x": 1032.0000686645508,
+        "y": 1657.999997138977,
+        "wires": [
+            [
+                "51f41874c9960370",
+                "c3a2adc7a5f00969"
+            ]
+        ]
+    },
+    {
+        "id": "12129d8bcba105b5",
+        "type": "ui_slider",
+        "z": "13cc7814494b07cd",
+        "name": "Thanh trượt nhiệt độ",
+        "label": "Nhiệt độ hiện tại (°C)",
+        "tooltip": "",
+        "group": "3fbc50ed6e69ad2f",
+        "order": 7,
+        "width": 7,
+        "height": 1,
+        "passthru": true,
+        "outs": "all",
+        "topic": "currentTemperature",
+        "topicType": "str",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "className": "",
+        "x": 1049.0000534057617,
+        "y": 1371.000020980835,
+        "wires": [
+            [
+                "1c7fcbe7846d8922",
+                "9401de9e4d7d5e01",
+                "f0b4fb13f5024668",
+                "6d8cc727a9155809"
+            ]
+        ]
+    },
+    {
+        "id": "9401de9e4d7d5e01",
+        "type": "ui_chart",
+        "z": "13cc7814494b07cd",
+        "name": "Biểu đồ nhiệt độ",
+        "group": "3fbc50ed6e69ad2f",
+        "order": 13,
+        "width": 7,
+        "height": 4,
+        "label": "Biểu đồ nhiệt độ",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Chưa có dữ liệu",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "1",
+        "removeOlderPoints": "100",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#ff6600",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1710.0000610351562,
+        "y": 1366.000020980835,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1c7fcbe7846d8922",
+        "type": "ui_gauge",
+        "z": "13cc7814494b07cd",
+        "name": "Nhiệt độ",
+        "group": "3fbc50ed6e69ad2f",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Nhiệt độ",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 100,
+        "colors": [
+            "#e82c17",
+            "#2ecc71",
+            "#d3ec13"
+        ],
+        "seg1": "10",
+        "seg2": 60,
+        "diff": false,
+        "className": "",
+        "x": 1474.0000610351562,
+        "y": 1370.0000200271606,
+        "wires": []
+    },
+    {
+        "id": "a301a906ab11fbc7",
+        "type": "ui_slider",
+        "z": "13cc7814494b07cd",
+        "name": "Thanh trượt Độ ẩm",
+        "label": "Độ ẩm",
+        "tooltip": "",
+        "group": "3fbc50ed6e69ad2f",
+        "order": 8,
+        "width": 7,
+        "height": 1,
+        "passthru": true,
+        "outs": "all",
+        "topic": "currentTemperature",
+        "topicType": "str",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "className": "",
+        "x": 1039.0000534057617,
+        "y": 1431.000020980835,
+        "wires": [
+            [
+                "ebebdd5f08650fb3",
+                "1e973b102e62cdd7",
+                "42536e860ffd201a",
+                "95bb828a29bb4aa7"
+            ]
+        ]
+    },
+    {
+        "id": "42536e860ffd201a",
+        "type": "ui_chart",
+        "z": "13cc7814494b07cd",
+        "name": "Biểu đồ Độ ẩm",
+        "group": "3fbc50ed6e69ad2f",
+        "order": 14,
+        "width": 7,
+        "height": 4,
+        "label": "Biểu đồ Độ ẩm",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Chưa có dữ liệu",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "1",
+        "removeOlderPoints": "100",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#ff6600",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1713.0000610351562,
+        "y": 1434.000020980835,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "eae5e0b97d1cf77c",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Lưu độ ẩm min Trạm 2",
+        "func": "flow.set(\"humidityMin_2\", msg.payload);\nreturn null;",
+        "outputs": 0,
+        "x": 1520,
+        "y": 1780,
+        "wires": []
+    },
+    {
+        "id": "d2d3f8d424001976",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Lưu độ ẩm max Trạm 2",
+        "func": "flow.set(\"humidityMax_2\", msg.payload);\nreturn null;",
+        "outputs": 0,
+        "x": 1532.0000686645508,
+        "y": 1717.999997138977,
+        "wires": []
+    },
+    {
+        "id": "b53b9e1b3c8cee13",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Lưu nhiệt độ min Trạm 2",
+        "func": "flow.set(\"temperatureMin_2\", msg.payload);\nreturn null;",
+        "outputs": 0,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1532.0000686645508,
+        "y": 1597.999997138977,
+        "wires": []
+    },
+    {
+        "id": "51f41874c9960370",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Lưu nhiệt độ max Trạm 2",
+        "func": "flow.set(\"temperatureMax_2\", msg.payload);\nreturn null;",
+        "outputs": 0,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1532.0000686645508,
+        "y": 1657.999997138977,
+        "wires": []
+    },
+    {
+        "id": "f0b4fb13f5024668",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Lưu nhiệt độ hiện tại",
+        "func": "flow.set(\"currentTemperature_2\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1975.0000610351562,
+        "y": 1366.0000200271606,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1e973b102e62cdd7",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Lưu độ ẩm hiện tại",
+        "func": "flow.set(\"currentHumidity_2\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1970,
+        "y": 1440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e9037f50c6b61513",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramCM/tocdonhan1PLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "1efbf2651ee09679",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 209.00005340576172,
+        "y": 1491.000020980835,
+        "wires": [
+            [
+                "3f397b23c2de95a3"
+            ]
+        ]
+    },
+    {
+        "id": "fdbb93a6cfb9b2de",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuRA",
+        "topic": "HaMinhDat/feeds/tramCM/tocdohienthi",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1efbf2651ee09679",
+        "x": 1269.0000534057617,
+        "y": 1491.000020980835,
+        "wires": []
+    },
+    {
+        "id": "f17dc6157ceacdaa",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramCM/nhietdonhanPLC",
+        "qos": "0",
+        "datatype": "utf8",
+        "broker": "1efbf2651ee09679",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 253.0000114440918,
+        "y": 1371.0000205039978,
+        "wires": [
+            [
+                "12129d8bcba105b5"
+            ]
+        ]
+    },
+    {
+        "id": "6d8cc727a9155809",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuRA",
+        "topic": "HaMinhDat/feeds/tramCM/nhietdogui",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1efbf2651ee09679",
+        "x": 1264.0001220703125,
+        "y": 1372.0000171661377,
+        "wires": []
+    },
+    {
+        "id": "079f8433aa736082",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramCM/doamnhanPLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 209.00005340576172,
+        "y": 1431.000020980835,
+        "wires": [
+            [
+                "a301a906ab11fbc7"
+            ]
+        ]
+    },
+    {
+        "id": "95bb828a29bb4aa7",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuRA",
+        "topic": "HaMinhDat/feeds/tramCM/doamgui",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1efbf2651ee09679",
+        "x": 1264.0001220703125,
+        "y": 1430.000018119812,
+        "wires": []
+    },
+    {
+        "id": "4e0db94699f6ee97",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramCM/nhietdominnhanPLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "1efbf2651ee09679",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 682.0000686645508,
+        "y": 1597.999997138977,
+        "wires": [
+            [
+                "153ee70b076deb18"
+            ]
+        ]
+    },
+    {
+        "id": "0d743dd52538b3c4",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "tinheiuRA",
+        "topic": "HaMinhDat/feeds/tramCM/nhietdomingui",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1efbf2651ee09679",
+        "x": 1262.0000686645508,
+        "y": 1597.999997138977,
+        "wires": []
+    },
+    {
+        "id": "064ac80eb71e6166",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramCM/doammaxnhanPLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "1efbf2651ee09679",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 682.0000686645508,
+        "y": 1717.999997138977,
+        "wires": [
+            [
+                "d4c3076f1683f1f9"
+            ]
+        ]
+    },
+    {
+        "id": "867243b513edc61b",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "tinheiuRA",
+        "topic": "HaMinhDat/feeds/tramCM/doammaxgui",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1efbf2651ee09679",
+        "x": 1262.0000686645508,
+        "y": 1717.999997138977,
+        "wires": []
+    },
+    {
+        "id": "2ffd7decadca9622",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramCM/nhietdomaxnhanPLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "1efbf2651ee09679",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 682.0000686645508,
+        "y": 1657.999997138977,
+        "wires": [
+            [
+                "fec4b54d05de1419"
+            ]
+        ]
+    },
+    {
+        "id": "c3a2adc7a5f00969",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuRA",
+        "topic": "HaMinhDat/feeds/tramCM/nhietdomaxgui",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1efbf2651ee09679",
+        "x": 1262.0000686645508,
+        "y": 1657.999997138977,
+        "wires": []
+    },
+    {
+        "id": "e719124fd93b5374",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramCM/doamminnhanPLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "1efbf2651ee09679",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 682.0000686645508,
+        "y": 1777.999997138977,
+        "wires": [
+            [
+                "1be8ac24030e30e4"
+            ]
+        ]
+    },
+    {
+        "id": "8c0e3c5804e7cb58",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuRA",
+        "topic": "HaMinhDat/feeds/tramCM/doammingui",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1efbf2651ee09679",
+        "x": 1262.0000686645508,
+        "y": 1777.999997138977,
+        "wires": []
+    },
+    {
+        "id": "b57e6fe8c17cde73",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramCM/tocdohienthi",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "1efbf2651ee09679",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1639.0000228881836,
+        "y": 1493.9999160766602,
+        "wires": [
+            [
+                "2e4c9da72704bff8"
+            ]
+        ]
+    },
+    {
+        "id": "2e4c9da72704bff8",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Chuẩn hóa 0–100 (%)",
+        "func": "// Chuẩn hóa giá trị % về số trong khoảng 0..100\nfunction parseAny(x) {\n  if (typeof x === 'number') return x;\n\n  if (typeof x === 'string') {\n    let s = x.trim();\n\n    // bỏ dấu % và khoảng trắng\n    s = s.replace(/\\s+/g, '').replace('%', '');\n\n    // Các trường hợp số thập phân dùng dấu phẩy:\n    // - \"52,2\"\n    // - \"1.234,5\" (dấu . là phân tách hàng nghìn)\n    // Quy tắc: bỏ hết dấu chấm, đổi dấu phẩy thành chấm.\n    if (/,/.test(s)) {\n      s = s.replace(/\\./g, '').replace(',', '.');\n    }\n\n    // Nếu chỉ có dấu chấm (thập phân chuẩn) thì giữ nguyên\n    const n = Number(s);\n    if (!Number.isNaN(n)) return n;\n    return undefined;\n  }\n\n  // object có thuộc tính pumpSpeed (có thể là \"52,2\")\n  if (x && typeof x === 'object') {\n    const cand = x.pumpSpeed ?? x.value ?? x.speed;\n    return parseAny(cand);\n  }\n\n  return undefined;\n}\n\nlet v = parseAny(msg.payload);\nif (v === undefined) return null;\n\n// Giới hạn 0..100 và làm tròn 1 chữ số thập phân\nv = Math.max(0, Math.min(100, v));\nmsg.payload = Math.round(v * 10) / 10;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1819.0000228881836,
+        "y": 1493.9999160766602,
+        "wires": [
+            [
+                "6bb24eb653f582c5"
+            ]
+        ]
+    },
+    {
+        "id": "6bb24eb653f582c5",
+        "type": "ui_template",
+        "z": "13cc7814494b07cd",
+        "group": "3fbc50ed6e69ad2f",
+        "name": "Thanh mức xanh đậm-nhạt",
+        "order": 9,
+        "width": 7,
+        "height": 2,
+        "format": "<style>\n  .pump-title{font-weight:800;margin-bottom:5px;color:#FFD700;}\n  .pump-wrap{position:relative;width:100%;height:45px;background:#e6f2ff;border-radius:999px;overflow:hidden;box-shadow:inset 0 0 3px #aacfff;}\n  .pump-fill{height:100%;border-radius:999px;transition:width 0.4s ease,background 0.4s ease;}\n  .pump-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#002b80;}\n</style>\n<div class=\"pump-title\">TỐC ĐỘ BƠM</div>\n<div class=\"pump-wrap\">\n  <div id=\"pumpFill{{$id}}\" class=\"pump-fill\" style=\"width:{{val}}%;background:linear-gradient(90deg,#80d4ff,#1a8cff,#005ce6);\"></div>\n  <div class=\"pump-text\">{{val}}%</div>\n</div>\n<script>\n(function(scope){\n  scope.val = 0;\n  const fill = document.getElementById('pumpFill'+scope.$id);\n  scope.$watch('msg', function(msg){\n    if(!msg) return;\n    var v = Number(msg.payload);\n    if(isNaN(v)) return;\n    v = Math.max(0, Math.min(100, v));\n    scope.val = Math.round(v*10)/10;\n    // đổi độ đậm nhạt theo giá trị\n    let color;\n    if (v < 40) color = 'linear-gradient(90deg,#a0e6ff,#4db8ff,#1a8cff)';\n    else if (v < 70) color = 'linear-gradient(90deg,#4db8ff,#1a8cff,#0066ff)';\n    else color = 'linear-gradient(90deg,#1a8cff,#0066ff,#003cb3)';\n    fill.style.width = v + '%';\n    fill.style.background = color;\n  });\n})(scope);\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 2060,
+        "y": 1492.9999046325684,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1858824fa3ee1fcd",
+        "type": "inject",
+        "z": "13cc7814494b07cd",
+        "name": "Kiểm tra định kỳ",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 2160,
+        "wires": [
+            [
+                "2a40b923d1631829"
+            ]
+        ]
+    },
+    {
+        "id": "2a40b923d1631829",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Kiểm tra cảnh báo",
+        "func": "// Nếu hệ thống chưa START thì hiện thông báo \"Hệ thống đã tắt!\"\nif (flow.get('started') !== true) {\n  msg.payload  = \"🔘 Hệ thống đã tắt!\";\n  msg.severity = \"INFO\";\n  msg.mode     = \"IDLE\";\n  return msg;\n}\n\n// Nếu chưa START thì không phát cảnh báo\nif (flow.get('started') !== true) { return null; }\n\n\n/***** NGƯỠNG & GIÁ TRỊ *****/\n// Lấy ngưỡng từ flow context\nconst hMin = Number(flow.get(\"humidityMin_2\"));\nconst hMax = Number(flow.get(\"humidityMax_2\"));\nconst tMin = Number(flow.get(\"temperatureMin_2\"));\nconst tMax = Number(flow.get(\"temperatureMax_2\"));\n\n// Lấy giá trị cảm biến hiện tại\nconst humidity    = Number(flow.get(\"currentHumidity_2\"));\nconst temperature = Number(flow.get(\"currentTemperature_2\"));\n\n/***** XÁC ĐỊNH CHẾ ĐỘ *****/\nlet mode = (flow.get(\"mode\") || \"\").toString().toUpperCase();\nif (mode !== \"AUTO\" && mode !== \"MANUAL\") {\n  if (flow.get(\"auto\") === true)       mode = \"AUTO\";\n  else if (flow.get(\"manual\") === true) mode = \"MANUAL\";\n  else                                  mode = \"IDLE\"; // mặc định \n}\n\n/***** LOGIC KIỂM TRA *****/\nconst thongBao = [];\nconst canhBao  = [];\n\n/***** KIỂM TRA NHẬP LIỆU SAI *****/\nif (!Number.isNaN(tMin) && !Number.isNaN(tMax) && tMin > tMax) {\n  msg.payload = \"⚠️ LỖI NHẬP LIỆU: Nhiệt độ MIN lớn hơn MAX!\";\n  msg.severity = \"ALERT\";\n  msg.mode = mode;\n  return msg;\n}\nif (!Number.isNaN(hMin) && !Number.isNaN(hMax) && hMin > hMax) {\n  msg.payload = \"⚠️ LỖI NHẬP LIỆU: Độ ẩm MIN lớn hơn MAX!\";\n  msg.severity = \"ALERT\";\n  msg.mode = mode;\n  return msg;\n}\n\n/***** NẾU CHƯA CÓ DỮ LIỆU CẢM BIẾN *****/\nif (Number.isNaN(temperature) || Number.isNaN(humidity)) {\n  msg.payload  = \"⚠️ Chưa có dữ liệu cảm biến!\";\n  msg.severity = \"INFO\";\n  msg.mode     = mode;\n  msg.data     = { temperature, humidity, tMin, tMax, hMin, hMax };\n  return msg;\n}\n\n/***** CẢNH BÁO (mức nặng) — áp dụng mọi chế độ *****/\n// TH1: nhiệt độ = 0 & độ ẩm = 0\nif (temperature === 0 && humidity === 0) {\n  canhBao.push(\"🚨 CẢNH BÁO: HỎNG CẢM BIẾN (nhiệt độ=0 & độ ẩm=0)\");\n}\n// TH2: nhiệt độ >= 60 & độ ẩm >= 90\nif (temperature >= 60 && humidity >= 90) {\n  canhBao.push(\"🚨 CẢNH BÁO: NHIỆT & ẨM QUÁ CAO (≥60°C & ≥90%)\");\n}\n// TH3: nhiệt độ < 10\nif (temperature < 10) {\n  canhBao.push(\"🚨 CẢNH BÁO: NHIỆT ĐỘ QUÁ THẤP (<10°C)\");\n}\n\n/***** THÔNG BÁO (mức nhẹ) *****/\nif (mode === \"MANUAL\") {\n  // TH1: nhiệt độ = 0 HOẶC độ ẩm = 0\n  if (temperature === 0 || humidity === 0) {\n    thongBao.push(\"ℹ️ THÔNG BÁO: THIẾT BỊ HỎNG CẢM BIẾN (một trong hai bằng 0)\");\n  }\n  // TH2: nhiệt độ >= 60\n  if (temperature >= 60) {\n    thongBao.push(\"ℹ️ THÔNG BÁO: NHIỆT ĐỘ QUÁ CAO (≥60°C)\");\n  }\n  // TH3: độ ẩm >= 90\n  if (humidity >= 90) {\n    thongBao.push(\"ℹ️ THÔNG BÁO: ĐỘ ẨM QUÁ CAO (≥90%)\");\n  }\n  // TH4: nhiệt độ < 10\n  if (temperature < 10) {\n    thongBao.push(\"ℹ️ THÔNG BÁO: NHIỆT ĐỘ QUÁ THẤP (<10°C)\");\n  }\n  // TH5: độ ẩm <= 35\n  if (humidity <= 35) {\n    thongBao.push(\"ℹ️ THÔNG BÁO: ĐỘ ẨM QUÁ THẤP (≤35%)\");\n  }\n} else if (mode === \"AUTO\") {\n  // TH1: nhiệt độ < min\n  if (!Number.isNaN(tMin) && temperature < tMin) {\n    thongBao.push(`ℹ️ THÔNG BÁO: NHIỆT ĐỘ DƯỚI NGƯỠNG (T=${temperature}°C < min=${tMin}°C)`);\n  }\n  // TH2: nhiệt độ > max\n  if (!Number.isNaN(tMax) && temperature > tMax) {\n    thongBao.push(`ℹ️ THÔNG BÁO: NHIỆT ĐỘ TRÊN NGƯỠNG (T=${temperature}°C > max=${tMax}°C)`);\n  }\n  // TH3: độ ẩm < min\n  if (!Number.isNaN(hMin) && humidity < hMin) {\n    thongBao.push(`ℹ️ THÔNG BÁO: ĐỘ ẨM DƯỚI NGƯỠNG (H=${humidity}% < min=${hMin}%)`);\n  }\n  // TH4: độ ẩm > max\n  if (!Number.isNaN(hMax) && humidity > hMax) {\n    thongBao.push(`ℹ️ THÔNG BÁO: ĐỘ ẨM TRÊN NGƯỠNG (H=${humidity}% > max=${hMax}%)`);\n  }\n}\n\n/***** ƯU TIÊN HIỂN THỊ *****/\nlet payloadText = \"\";\nlet severity = \"OK\"; // OK | INFO | ALERT\nif (canhBao.length > 0) {\n  payloadText = canhBao.join(\"<br>\");\n  severity = \"ALERT\";\n} else if (thongBao.length > 0) {\n  payloadText = thongBao.join(\"<br>\");\n  severity = \"INFO\";\n} else {\n  payloadText = \"✅ Mọi giá trị bình thường.\";\n  severity = \"OK\";\n}\n\n/***** TRẢ KẾT QUẢ *****/\nmsg.payload  = payloadText;     // dùng <br> để xuống dòng trên Dashboard\nmsg.mode     = mode;\nmsg.severity = severity;\nmsg.data     = { temperature, humidity, tMin, tMax, hMin, hMax };\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "0",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 2160,
+        "wires": [
+            [
+                "a_fx_alert_tpl"
+            ]
+        ]
+    },
+    {
+        "id": "a_fx_alert_tpl",
+        "type": "ui_template",
+        "z": "13cc7814494b07cd",
+        "group": "3fbc50ed6e69ad2f",
+        "name": "Alert FX (flash/shake/breathe)",
+        "order": 12,
+        "width": 7,
+        "height": 4,
+        "format": "<div ng-if=\"msg && msg.severity\" id=\"fxAlert\"\n     ng-class=\"{\n        'ok':    msg.severity === 'OK',\n        'info':  msg.severity === 'INFO',\n        'alert': msg.severity === 'ALERT'\n     }\">\n  <span ng-bind-html=\"msg.payload\"></span>\n</div>\n\n<style>\n#fxAlert{\n  margin-top:6px; padding:10px 14px; border-radius:10px;\n  border-left:6px solid transparent; color:#fff; font-size:15px;\n  background:#2b2b2b; transition:background .25s, border-color .25s;\n}\n#fxAlert.ok   { background:#1f2f26; border-color:#2ecc71; }\n#fxAlert.info { background:#2f2b1f; border-color:#f1c40f; animation:breathe 2.2s ease-in-out infinite; }\n#fxAlert.alert{ background:#3a1f1f; border-color:#e74c3c; animation:flash .9s ease-in-out 3, shake .34s linear 2; }\n\n@keyframes breathe{ 0%{box-shadow:0 0 0 0 rgba(241,196,15,.35)} 70%{box-shadow:0 0 0 12px rgba(241,196,15,0)} 100%{box-shadow:0 0 0 0 rgba(0,0,0,0)} }\n@keyframes flash{ 0%{filter:brightness(1)} 50%{filter:brightness(1.6)} 100%{filter:brightness(1)} }\n@keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-3px)} 75%{transform:translateX(3px)} }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 650,
+        "y": 2160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "12c53afd654f364f",
+        "type": "ui_button",
+        "z": "13cc7814494b07cd",
+        "name": "Bật hệ thống",
+        "group": "d982f240f263f8af",
+        "order": 3,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "START",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "btn-start",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "str",
+        "topic": "system",
+        "topicType": "str",
+        "x": 130,
+        "y": 1600,
+        "wires": [
+            [
+                "5ad65d14749c0589"
+            ]
+        ]
+    },
+    {
+        "id": "a93394fb5c016504",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramCM/startnhanPLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "1efbf2651ee09679",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 89.00005340576172,
+        "y": 1551.000020980835,
+        "wires": [
+            [
+                "5ad65d14749c0589"
+            ]
+        ]
+    },
+    {
+        "id": "5ad65d14749c0589",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "On START -> mark started",
+        "func": "flow.set('started', true);   // <--- THÊM DÒNG NÀY\nflow.set('enabled', true);\nflow.set('mode', 'IDLE');\nnode.status({ fill: 'green', shape: 'dot', text: 'enabled=true' });\n\n// Giữ phần gửi xung & started_state như cũ:\nnode.send([{ payload: \"true\", topic: \"HaMinhDat/feeds/tramCM/startgui\" }, { started: true, topic: \"started_state\" }]);\n\nsetTimeout(() => {\n  node.send([{ payload: \"false\", topic: \"HaMinhDat/feeds/tramCM/startgui\" }, null]);\n}, 500);\n\nreturn null;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 349.0000534057617,
+        "y": 1551.000020980835,
+        "wires": [
+            [
+                "b14d7564cc63c0fb"
+            ],
+            [
+                "819c88c9c78841af"
+            ]
+        ]
+    },
+    {
+        "id": "b14d7564cc63c0fb",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "tinheiuRA",
+        "topic": "HaMinhDat/feeds/tramCM/startgui",
+        "qos": "",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1efbf2651ee09679",
+        "x": 660,
+        "y": 1540,
+        "wires": []
+    },
+    {
+        "id": "819c88c9c78841af",
+        "type": "ui_template",
+        "z": "13cc7814494b07cd",
+        "group": "c96834b4b3c54815",
+        "name": "Locker UI (disable until START)",
+        "order": 3,
+        "width": 1,
+        "height": 1,
+        "format": "<div style=\"display:none\"></div>\n<style id=\"requires-start-style\"></style>\n<script>\n(function(scope){\n  var STYLE_ID = 'requires-start-style';\n  function setLocked(locked){\n    var style = document.getElementById(STYLE_ID);\n    if(!style) return;\n    style.textContent = locked\n      ? '.requires-start{pointer-events:none; opacity:.5; filter:grayscale(.3);} .requires-start .md-select-value{cursor:not-allowed!important;}'\n      : '';\n  }\n  // Mặc định: khoá\n  setLocked(true);\n  scope.$watch('msg', function(msg){\n    if(!msg) return;\n    if(msg.started === true){ setLocked(false); }\n    if(msg.started === false){ setLocked(true); }\n  });\n})(scope);\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 2110,
+        "y": 1560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a6bc5fa75171432a",
+        "type": "inject",
+        "z": "13cc7814494b07cd",
+        "name": "Init lock (started=false)",
+        "props": [
+            {
+                "p": "started",
+                "v": "false",
+                "vt": "bool"
+            }
+        ],
+        "repeat": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "started_state",
+        "x": 1820,
+        "y": 1620,
+        "wires": [
+            [
+                "819c88c9c78841af",
+                "57531b84a0e3ac84"
+            ]
+        ]
+    },
+    {
+        "id": "57531b84a0e3ac84",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "flow.started = false on deploy",
+        "func": "flow.set('started', false);\nreturn null;",
+        "outputs": 0,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2100,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "b5be5feb084a4562",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "STOP ALL",
+        "func": "// Khi STOP thì ép OFF tất cả switch\nlet switchTopics = [\"led1\"];\n\nlet msgs = [];\nfor (let s of switchTopics) {\n    msgs.push({ topic: s, payload: false });\n}\n\nreturn [msgs];\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 1700,
+        "wires": [
+            [
+                "3f397b23c2de95a3",
+                "1be8ac24030e30e4",
+                "d4c3076f1683f1f9",
+                "153ee70b076deb18",
+                "fec4b54d05de1419",
+                "12129d8bcba105b5",
+                "a301a906ab11fbc7",
+                "b14d7564cc63c0fb",
+                "c99b402078d78e84",
+                "mqttManualGuiCM",
+                "mqttAutoGuiCM",
+                "mqttModeCM"
+            ]
+        ]
+    },
+    {
+        "id": "133b636c9071aa08",
+        "type": "ui_button",
+        "z": "13cc7814494b07cd",
+        "name": "TẮT HỆ THỐNG",
+        "group": "d982f240f263f8af",
+        "order": 4,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "STOP",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "btn-stop",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "str",
+        "topic": "system",
+        "topicType": "str",
+        "x": 130,
+        "y": 1780,
+        "wires": [
+            [
+                "6c6933f37a4e1a83"
+            ]
+        ]
+    },
+    {
+        "id": "a060e3df75fdb259",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramCM/stopnhanPLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "1efbf2651ee09679",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 80,
+        "y": 1700,
+        "wires": [
+            [
+                "6c6933f37a4e1a83",
+                "b5be5feb084a4562"
+            ]
+        ]
+    },
+    {
+        "id": "6c6933f37a4e1a83",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "On STOP -> mark started",
+        "func": "// Out1 -> MQTT stopgui (pulse true -> false)\n// Out2 -> Locker UI: { started: false }  (topic 'started_state')\n// Out3 -> Publish mode (retained): 'IDLE' (topic 'HaMinhDat/feeds/tramCM/mode')\n\nflow.set('started', false);\nflow.set('mode', 'IDLE');\n\nnode.status({ fill: 'red', shape: 'ring', text: 'started=false, mode=IDLE' });\n\n// phát xung STOP ngay\nnode.send([\n  { payload: \"true\",  topic: \"HaMinhDat/feeds/tramCM/stopgui\" }, // Out1\n  { started: false,   topic: \"started_state\" },                   // Out2\n  { payload: \"IDLE\",  topic: \"HaMinhDat/feeds/tramCM/mode\" }     // Out3\n]);\n\n// hạ xung STOP sau 0.5s\nsetTimeout(() => {\n  node.send([\n    { payload: \"false\", topic: \"HaMinhDat/feeds/tramCM/stopgui\" }, // Out1\n    null,                                                          // Out2\n    null                                                           // Out3\n  ]);\n}, 1500);\n\nreturn null;\n",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 1840,
+        "wires": [
+            [
+                "c99b402078d78e84"
+            ],
+            [
+                "d24e61ac355341e0"
+            ],
+            [
+                "mqttModeCM"
+            ]
+        ]
+    },
+    {
+        "id": "c99b402078d78e84",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "tinheiuRA",
+        "topic": "HaMinhDat/feeds/tramCM/stopgui",
+        "qos": "",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1efbf2651ee09679",
+        "x": 560,
+        "y": 1800,
+        "wires": []
+    },
+    {
+        "id": "d24e61ac355341e0",
+        "type": "ui_template",
+        "z": "13cc7814494b07cd",
+        "group": "c96834b4b3c54815",
+        "name": "Locker UI (disable until START)",
+        "order": 4,
+        "width": 1,
+        "height": 1,
+        "format": "<div style=\"display:none\"></div>\n<style id=\"requires-start-style\"></style>\n<script>\n(function(scope){\n  var STYLE_ID = 'requires-start-style';\n  function setLocked(locked){\n    var style = document.getElementById(STYLE_ID);\n    if(!style) return;\n    style.textContent = locked\n      ? '.requires-start{pointer-events:none; opacity:.5; filter:grayscale(.3);} .requires-start .md-select-value{cursor:not-allowed!important;}'\n      : '';\n  }\n  // Mặc định: khoá\n  setLocked(true);\n  scope.$watch('msg', function(msg){\n    if(!msg) return;\n    if(msg.started === true){ setLocked(false); }\n    if(msg.started === false){ setLocked(true); }\n  });\n})(scope);\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 2150,
+        "y": 1840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "45c5a9daebb74327",
+        "type": "inject",
+        "z": "13cc7814494b07cd",
+        "name": "Init lock (started=false)",
+        "props": [
+            {
+                "p": "started",
+                "v": "false",
+                "vt": "bool"
+            }
+        ],
+        "repeat": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "started_state",
+        "x": 1860,
+        "y": 1880,
+        "wires": [
+            [
+                "d24e61ac355341e0",
+                "8c52914e54cbf476"
+            ]
+        ]
+    },
+    {
+        "id": "8c52914e54cbf476",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "flow.started = false on deploy",
+        "func": "flow.set('started', false);\nreturn null;",
+        "outputs": 0,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2140,
+        "y": 1880,
+        "wires": []
+    },
+    {
+        "id": "btnManualCM",
+        "type": "ui_button",
+        "z": "13cc7814494b07cd",
+        "name": "MANUAL",
+        "group": "c96834b4b3c54815",
+        "order": 1,
+        "width": 2,
+        "height": 1,
+        "passthru": false,
+        "label": "MANUAL",
+        "tooltip": "",
+        "color": "#FFFFFF",
+        "bgcolor": "#374151",
+        "className": "",
+        "icon": "",
+        "payload": "manual",
+        "payloadType": "str",
+        "topic": "mode",
+        "topicType": "str",
+        "x": 520,
+        "y": 1960,
+        "wires": [
+            [
+                "fnPulseManualCM"
+            ]
+        ]
+    },
+    {
+        "id": "btnAutoCM",
+        "type": "ui_button",
+        "z": "13cc7814494b07cd",
+        "name": "AUTO",
+        "group": "841cf1e620ca3cfb",
+        "order": 1,
+        "width": 2,
+        "height": 1,
+        "passthru": false,
+        "label": "AUTO",
+        "tooltip": "",
+        "color": "#0B1220",
+        "bgcolor": "#0EA5E9",
+        "className": "",
+        "icon": "",
+        "payload": "auto",
+        "payloadType": "str",
+        "topic": "mode",
+        "topicType": "str",
+        "x": 512.0000686645508,
+        "y": 2037.999997138977,
+        "wires": [
+            [
+                "fnPulseAutoCM"
+            ]
+        ]
+    },
+    {
+        "id": "fnPulseManualCM",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Pulse MANUAL -> set mode",
+        "func": "// BỎ CHẶN nếu muốn test nhanh (hoặc giữ lại tuỳ anh)\n// const started = flow.get('started') === true;\n// if (!started) { node.status({fill:'red',shape:'ring',text:'locked: press START'}); return null; }\nnode.status({});\n\nlet m = (msg.payload || '').toString().toUpperCase();\nif (m !== 'MANUAL') return null;\n\n// Cập nhật logic nội bộ\nflow.set('mode', 'MANUAL');\n\n// Output 1: xung GUI (retain=false)\n// Output 2: publish mode (retain=true) ---> GỬI IN HOA để bên cloud/thiết bị dễ so sánh\nnode.send([\n  { payload: 'true',  topic: 'HaMinhDat/feeds/tramCM/manualgui' },\n  { payload: 'MANUAL', topic: 'HaMinhDat/feeds/tramCM/mode' }\n]);\n\nsetTimeout(() => {\n  node.send([\n    { payload: 'false', topic: 'HaMinhDat/feeds/tramCM/manualgui' },\n    null\n  ]);\n}, 500);\n\nreturn null;\n",
+        "outputs": 2,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 1960,
+        "wires": [
+            [
+                "mqttManualGuiCM"
+            ],
+            [
+                "mqttModeCM"
+            ]
+        ]
+    },
+    {
+        "id": "fnPulseAutoCM",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Pulse AUTO -> set mode",
+        "func": "// BỎ CHẶN nếu muốn test nhanh (hoặc giữ lại tuỳ anh)\n// const started = flow.get('started') === true;\n// if (!started) { node.status({fill:'red',shape:'ring',text:'locked: press START'}); return null; }\nnode.status({});\n\nlet m = (msg.payload || '').toString().toUpperCase();\nif (m !== 'AUTO') return null;\n\n// Cập nhật logic nội bộ\nflow.set('mode', 'AUTO');\n\n// Output 1: xung GUI (retain=false)\n// Output 2: publish mode (retain=true) ---> GỬI IN HOA\nnode.send([\n  { payload: 'true', topic: 'HaMinhDat/feeds/tramCM/autogui' },\n  { payload: 'AUTO', topic: 'HaMinhDat/feeds/tramCM/mode' }\n]);\n\nsetTimeout(() => {\n  node.send([\n    { payload: 'false', topic: 'HaMinhDat/feeds/tramCM/autogui' },\n    null\n  ]);\n}, 500);\n\nreturn null;\n",
+        "outputs": 2,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 2040,
+        "wires": [
+            [
+                "mqttAutoGuiCM"
+            ],
+            [
+                "mqttModeCM"
+            ]
+        ]
+    },
+    {
+        "id": "mqttManualGuiCM",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "manualgui (pulse)",
+        "topic": "HaMinhDat/feeds/tramCM/manualgui",
+        "qos": "",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1efbf2651ee09679",
+        "x": 1292.0000686645508,
+        "y": 1917.999997138977,
+        "wires": []
+    },
+    {
+        "id": "mqttAutoGuiCM",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "autogui (pulse)",
+        "topic": "HaMinhDat/feeds/tramCM/autogui",
+        "qos": "",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1efbf2651ee09679",
+        "x": 1280,
+        "y": 1980,
+        "wires": []
+    },
+    {
+        "id": "mqttModeCM",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "mode (retained)",
+        "topic": "HaMinhDat/feeds/tramCM/mode",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1efbf2651ee09679",
+        "x": 1260,
+        "y": 2100,
+        "wires": []
+    },
+    {
+        "id": "5275b48831b6f510",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "modenhantinhieu",
+        "topic": "HaMinhDat/feeds/tramCM/manualnhantinhieuPLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "1efbf2651ee09679",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 200,
+        "y": 1960,
+        "wires": [
+            [
+                "fnPulseManualCM"
+            ]
+        ]
+    },
+    {
+        "id": "69d8dbd0192ce259",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "modenhantinhieu",
+        "topic": "HaMinhDat/feeds/tramCM/autonhantinhieuPLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "1efbf2651ee09679",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 200,
+        "y": 2040,
+        "wires": [
+            [
+                "fnPulseAutoCM"
+            ]
+        ]
+    },
+    {
+        "id": "be2ea595fb464ead",
+        "type": "ui_template",
+        "z": "13cc7814494b07cd",
+        "group": "",
+        "name": "",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\n  /* ===== START / STOP (đặt className của ui_button = btn-start / btn-stop) ===== */\n  .nr-dashboard-button.btn-start .md-button,\n  .nr-dashboard-button.btn-start .md-button.md-raised {\n    display: flex !important;\n    align-items: center !important;\n    justify-content: center !important;\n    height: 48px !important;\n    min-width: 128px !important;\n    padding: 0 18px !important;\n\n    background: #0E1216 !important;\n    color: #2E7D32 !important;\n    border: 2px solid #2E7D32 !important;\n    border-radius: 12px !important;\n    box-shadow: none !important;\n\n    font-weight: 800 !important;\n    font-size: 16px !important;\n    letter-spacing: .3px !important;\n    text-transform: none !important;\n    line-height: 1 !important;\n  }\n\n  .nr-dashboard-button.btn-start .md-button:hover {\n    background: rgba(46, 125, 50, .12) !important;\n  }\n\n  .nr-dashboard-button.btn-stop .md-button,\n  .nr-dashboard-button.btn-stop .md-button.md-raised {\n    display: flex !important;\n    align-items: center !important;\n    justify-content: center !important;\n    height: 48px !important;\n    min-width: 128px !important;\n    padding: 0 18px !important;\n\n    background: #0E1216 !important;\n    color: #E53935 !important;\n    border: 2px solid #E53935 !important;\n    border-radius: 12px !important;\n    box-shadow: none !important;\n\n    font-weight: 800 !important;\n    font-size: 16px !important;\n    letter-spacing: .3px !important;\n    text-transform: none !important;\n    line-height: 1 !important;\n  }\n\n  .nr-dashboard-button.btn-stop .md-button:hover {\n    background: rgba(229, 57, 53, .12) !important;\n  }\n\n  /* ===== Nút chuyển trạm: COMPACT (nhỏ hơn START/STOP) ===== */\n  #btn-switch-hcm.md-button,\n  #btn-switch-hcm.md-button.md-raised,\n  #btn-switch-cm.md-button,\n  #btn-switch-cm.md-button.md-raised,\n  .nr-dashboard-theme #btn-switch-hcm.md-button,\n  .nr-dashboard-theme #btn-switch-hcm.md-button.md-raised,\n  .nr-dashboard-theme #btn-switch-cm.md-button,\n  .nr-dashboard-theme #btn-switch-cm.md-button.md-raised {\n    min-height: 30px !important;\n    height: 30px !important;\n    padding: 0 12px !important;\n    min-width: unset !important;\n    border-radius: 999px !important;\n\n    background: #0E1216 !important;\n    color: #6FE39A !important;\n    border: 2px solid #2E7D32 !important;\n    box-shadow: none !important;\n\n    font-size: 12px !important;\n    font-weight: 700 !important;\n    letter-spacing: .1px !important;\n    text-transform: none !important;\n    line-height: 1 !important;\n    transform: none !important;\n  }\n\n  #btn-switch-hcm .md-button-content,\n  #btn-switch-cm .md-button-content {\n    font-size: 12px !important;\n    font-weight: 700 !important;\n    line-height: 1 !important;\n  }\n\n  #btn-switch-hcm:hover,\n  #btn-switch-hcm:focus,\n  #btn-switch-cm:hover,\n  #btn-switch-cm:focus {\n    background: rgba(46, 125, 50, .10) !important;\n    box-shadow: 0 0 10px rgba(46, 125, 50, .30) !important;\n    border-color: #79D2A6 !important;\n  }\n</style>\n\n<!-- Ví dụ nút chuyển trạm -->\n<md-button id=\"btn-switch-cm\" class=\"md-raised\" ng-click=\"send({topic:'nav', payload:'tram2'})\">\n  CHUYỂN QUA TRẠM CÀ MAU\n</md-button>\n<md-button id=\"btn-switch-hcm\" class=\"md-raised\" ng-click=\"send({topic:'nav', payload:'tram1'})\">\n  CHUYỂN QUA TRẠM HỒ CHÍ MINH\n</md-button>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "global",
+        "className": "",
+        "x": 140,
+        "y": 1880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "18eac73826287707",
+        "type": "ui_text",
+        "z": "13cc7814494b07cd",
+        "group": "c96834b4b3c54815",
+        "order": 2,
+        "width": 2,
+        "height": 1,
+        "name": "",
+        "label": "(rate%)",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1469.0000534057617,
+        "y": 1491.000020980835,
+        "wires": []
+    },
+    {
+        "id": "41ac22a083258a07",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "chuyển tab sang trạm 2",
+        "func": "// Chỉ đổi khi nhận đúng nút\nconst TAB2 = \"Trạm CÀ MAU\";\nif ((msg.topic || \"\") !== \"nav\") return null;\nif (!(msg.payload === \"tram2\" || (msg.payload && msg.payload.tab === TAB2))) return null;\n\n// Broadcast cho tất cả client (KHÔNG set msg.socketid)\nflow.set(\"currentTab\", TAB2);\nreturn { payload: { tab: TAB2 } };\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1990,
+        "y": 900,
+        "wires": [
+            [
+                "242738a872e13acf"
+            ]
+        ]
+    },
+    {
+        "id": "e3ad24c2e0710d28",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "chuyển vể trạm một",
+        "func": "const TAB1 = \"Trạm HỒ CHÍ MINH\";\nif ((msg.topic || \"\") !== \"nav\") return null;\nif (!(msg.payload === \"tram1\" || (msg.payload && msg.payload.tab === TAB1))) return null;\n\nflow.set(\"currentTab\", TAB1);\nreturn { payload: { tab: TAB1 } };\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2010,
+        "y": 980,
+        "wires": [
+            [
+                "242738a872e13acf"
+            ]
+        ]
+    },
+    {
+        "id": "242738a872e13acf",
+        "type": "ui_ui_control",
+        "z": "13cc7814494b07cd",
+        "name": "HMD",
+        "events": "all",
+        "x": 2190,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3ab8308eb172e06c",
+        "type": "ui_template",
+        "z": "13cc7814494b07cd",
+        "group": "d1f0d7e2f3a2fc75",
+        "name": "",
+        "order": 2,
+        "width": 1,
+        "height": 1,
+        "format": "<!-- NỀN VIDEO: Pixabay MP4 -->\n<script>\n  (function(){\n  // tạo nền nếu chưa có\n  if (!document.getElementById('video-bg')) {\n    var wrap = document.createElement('div');\n    wrap.id = 'video-bg';\n    wrap.innerHTML = '<video id=\"bgVideo\" playsinline muted autoplay loop crossorigin=\"anonymous\"></video>';\n    document.body.appendChild(wrap);\n  }\n\n  // gán nguồn MP4 trực tiếp (Pixabay)\n  var v = document.getElementById('bgVideo');\n  v.src = \"https://cdn.pixabay.com/video/2025/01/12/252178_large.mp4\";\n  v.muted = true;\n  v.addEventListener('canplay', ()=> v.play().catch(()=>{}));\n  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) v.play().catch(()=>{}); });\n})();\n</script>\n\n<style id=\"video-bg-style\">\n  /* Video phủ toàn màn hình, nằm DƯỚI UI, không chặn click */\n  #video-bg {\n    position: fixed;\n    inset: 0;\n    z-index: -1;\n    pointer-events: none;\n    overflow: hidden;\n  }\n\n  #video-bg video {\n    position: absolute;\n    inset: 0;\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n    transform: translateZ(0);\n    will-change: transform;\n    filter: none !important;\n    background: transparent !important;\n  }\n\n  /* Làm trong suốt các wrapper để thấy nền; KHÔNG đụng .md-card */\n  html,\n  body {\n    background: transparent !important;\n  }\n\n  .nr-dashboard-theme,\n  .nr-dashboard-theme md-content,\n  .nr-dashboard-theme .nr-dashboard-view,\n  body>md-content,\n  body>div.md-content {\n    background: transparent !important;\n  }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1460,
+        "y": 900,
+        "wires": [
+            [
+                "3628279f4d4a7dc9"
+            ]
+        ]
+    },
+    {
+        "id": "7b0f16212c84cf93",
+        "type": "ui_template",
+        "z": "13cc7814494b07cd",
+        "group": "d982f240f263f8af",
+        "name": "",
+        "order": 2,
+        "width": 1,
+        "height": 1,
+        "format": "<!-- NỀN VIDEO: Pixabay MP4 -->\n<script>\n  (function(){\n  // tạo nền nếu chưa có\n  if (!document.getElementById('video-bg')) {\n    var wrap = document.createElement('div');\n    wrap.id = 'video-bg';\n    wrap.innerHTML = '<video id=\"bgVideo\" playsinline muted autoplay loop crossorigin=\"anonymous\"></video>';\n    document.body.appendChild(wrap);\n  }\n\n  // gán nguồn MP4 trực tiếp (Pixabay)\n  var v = document.getElementById('bgVideo');\n  v.src = \"https://cdn.pixabay.com/video/2022/11/08/138267-769141615_large.mp4\";\n  v.muted = true;\n  v.addEventListener('canplay', ()=> v.play().catch(()=>{}));\n  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) v.play().catch(()=>{}); });\n})();\n</script>\n\n<style id=\"video-bg-style\">\n  /* Video phủ toàn màn hình, nằm DƯỚI UI, không chặn click */\n  #video-bg {\n    position: fixed;\n    inset: 0;\n    z-index: -1;\n    pointer-events: none;\n    overflow: hidden;\n  }\n\n  #video-bg video {\n    position: absolute;\n    inset: 0;\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n    transform: translateZ(0);\n    will-change: transform;\n    filter: none !important;\n    background: transparent !important;\n  }\n\n  /* Làm trong suốt các wrapper để thấy nền; KHÔNG đụng .md-card */\n  html,\n  body {\n    background: transparent !important;\n  }\n\n  .nr-dashboard-theme,\n  .nr-dashboard-theme md-content,\n  .nr-dashboard-theme .nr-dashboard-view,\n  body>md-content,\n  body>div.md-content {\n    background: transparent !important;\n  }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1560,
+        "y": 980,
+        "wires": [
+            [
+                "37e4fe16059c13cf"
+            ]
+        ]
+    },
+    {
+        "id": "3628279f4d4a7dc9",
+        "type": "ui_template",
+        "z": "13cc7814494b07cd",
+        "group": "d1f0d7e2f3a2fc75",
+        "name": "Header (title + clock + chuyển trạm)",
+        "order": 1,
+        "width": 7,
+        "height": 2,
+        "format": "<div id=\"app-header\">\n  <!-- Hàng 1: tiêu đề + đồng hồ -->\n  <div class=\"row row-top\">\n    <div class=\"left\">\n      <span class=\"logo-dot\"></span>\n      <span class=\"title\">TRẠM TƯỚI – HỒ CHÍ MINH</span>\n      <span id=\"clock\">--:--:--</span>\n    </div>\n  </div>\n\n  <!-- Hàng 2: nút chuyển trạm (xuống dòng, canh trái) -->\n  <div class=\"row row-bottom\">\n    <div class=\"right\">\n      <!-- ĐÃ ĐỔI class từ btn-start -> btn-switch -->\n    <md-button id=\"btn-switch-cm\" class=\"md-raised btn-switch\" ng-click=\"send({topic:'nav', payload:'tram2'})\">\n      CHUYỂN QUA TRẠM CÀ MAU\n      </md-button>\n    </div>\n  </div>\n</div>\n\n<style>\n  #app-header {\n    position: sticky;\n    top: 0;\n    z-index: 9;\n    display: flex;\n    flex-direction: column;\n    gap: 8px;\n    padding: 10px 14px;\n    margin: 0 0 6px 0;\n    background: rgba(0, 0, 0, .28);\n    border: 1px solid rgba(255, 255, 255, .08);\n    border-radius: 12px;\n    backdrop-filter: blur(5px);\n  }\n\n  #app-header .row {\n    width: 100%;\n  }\n\n  #app-header .row-top .left {\n    display: flex;\n    align-items: center;\n    gap: 24px;\n  }\n\n  #app-header .row-bottom .right {\n    display: flex;\n    justify-content: flex-start;\n  }\n\n  #app-header .title {\n    font-weight: 700;\n    letter-spacing: .3px;\n    white-space: nowrap;\n  }\n\n  #app-header .logo-dot {\n    width: 10px;\n    height: 10px;\n    border-radius: 50%;\n    display: inline-block;\n    margin-right: 2px;\n    background: #7bdc7b;\n    box-shadow: 0 0 10px #7bdc7b;\n  }\n\n  #app-header #clock {\n    font-variant-numeric: tabular-nums;\n    opacity: .9;\n  }\n\n  /* ===== Nút chuyển trạm: PILL GHOST + GLOW (phong cách khác START/STOP) ===== */\n  .md-button.btn-switch {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    height: 44px;\n    padding: 0 20px;\n    min-width: 220px;\n    /* chỉnh độ dài theo ý */\n    border-radius: 999px;\n    /* pill */\n    background: #0E1216 !important;\n    /* nền tối */\n    color: #6FE39A !important;\n    /* chữ xanh accent */\n    border: 2px solid #2E7D32 !important;\n    /* viền xanh primary */\n    box-shadow: 0 0 0 rgba(46, 125, 50, 0) !important;\n\n    font-weight: 800;\n    font-size: 16px;\n    letter-spacing: .4px;\n    text-transform: none;\n    line-height: 1;\n  }\n\n  .md-button.btn-switch:hover,\n  .md-button.btn-switch:focus {\n    background: rgba(46, 125, 50, .10) !important;\n    border-color: #79D2A6 !important;\n    box-shadow: 0 0 12px rgba(46, 125, 50, .35) !important;\n  }\n\n  .md-button.btn-switch:active {\n    background: rgba(46, 125, 50, .16) !important;\n    box-shadow: 0 0 16px rgba(46, 125, 50, .45) !important;\n  }\n\n  @media (max-width:480px) {\n    #app-header .row-top .left {\n      gap: 12px;\n    }\n\n    #app-header .title,\n    #app-header #clock {\n      font-size: 14px;\n    }\n\n    .md-button.btn-switch {\n      min-width: unset;\n    }\n\n    /* mobile: để auto rộng theo chữ */\n  }\n</style>\n\n<script>\n  (function(scope){\n    function tick(){\n      var d = new Date();\n      var s = d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});\n      var el = document.getElementById('clock');\n      if (el) el.textContent = s;\n    }\n    tick(); setInterval(tick, 1000);\n    scope.send = scope.send || function(){};\n  })(scope);\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1740,
+        "y": 900,
+        "wires": [
+            [
+                "41ac22a083258a07"
+            ]
+        ]
+    },
+    {
+        "id": "37e4fe16059c13cf",
+        "type": "ui_template",
+        "z": "13cc7814494b07cd",
+        "group": "d982f240f263f8af",
+        "name": "Header (title + clock + chuyển trạm)",
+        "order": 1,
+        "width": 7,
+        "height": 2,
+        "format": "<div id=\"app-header\">\n  <!-- Hàng 1: tiêu đề + đồng hồ -->\n  <div class=\"row row-top\">\n    <div class=\"left\">\n      <span class=\"logo-dot\"></span>\n      <span class=\"title\">TRẠM TƯỚI – CÀ MAU</span>\n      <span id=\"clock\">--:--:--</span>\n    </div>\n  </div>\n\n  <!-- Hàng 2: nút chuyển trạm (xuống dòng, canh trái) -->\n  <div class=\"row row-bottom\">\n    <div class=\"right\">\n    <md-button id=\"btn-switch-hcm\" class=\"md-raised btn-switch\" ng-click=\"send({topic:'nav', payload:'tram1'})\">\n      CHUYỂN QUA TRẠM HỒ CHÍ MINH\n      </md-button>\n    </div>\n  </div>\n</div>\n\n<style>\n  #app-header {\n    position: sticky;\n    top: 0;\n    z-index: 9;\n    display: flex;\n    flex-direction: column;\n    gap: 8px;\n    padding: 10px 14px;\n    margin: 0 0 6px 0;\n    background: rgba(0, 0, 0, .28);\n    border: 1px solid rgba(255, 255, 255, .08);\n    border-radius: 12px;\n    backdrop-filter: blur(5px);\n  }\n\n  #app-header .row {\n    width: 100%;\n  }\n\n  #app-header .row-top .left {\n    display: flex;\n    align-items: center;\n    gap: 24px;\n  }\n\n  /* >>> đổi sang flex-start để nút nằm đầu dòng bên trái */\n  #app-header .row-bottom .right {\n    display: flex;\n    justify-content: flex-start;\n  }\n\n  #app-header .title {\n    font-weight: 700;\n    letter-spacing: .3px;\n    white-space: nowrap;\n  }\n\n  #app-header .logo-dot {\n    width: 10px;\n    height: 10px;\n    border-radius: 50%;\n    display: inline-block;\n    margin-right: 2px;\n    background: #7bdc7b;\n    box-shadow: 0 0 10px #7bdc7b;\n  }\n\n  #app-header #clock {\n    font-variant-numeric: tabular-nums;\n    opacity: .9;\n  }\n\n  @media (max-width: 480px) {\n    #app-header .row-top .left {\n      gap: 12px;\n    }\n\n    #app-header .title,\n    #app-header #clock {\n      font-size: 14px;\n    }\n  }\n</style>\n\n<script>\n  (function(scope){\n  function tick(){\n    var d = new Date();\n    var s = d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});\n    var el = document.getElementById('clock');\n    if (el) el.textContent = s;\n  }\n  tick(); setInterval(tick, 1000);\n  scope.send = scope.send || function(){};\n})(scope);\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1780,
+        "y": 980,
+        "wires": [
+            [
+                "e3ad24c2e0710d28"
+            ]
+        ]
+    },
+    {
+        "id": "e905c5cebe05c721",
+        "type": "ui_slider",
+        "z": "13cc7814494b07cd",
+        "name": "Điều chỉnh tốc độ",
+        "label": "Speeds manual",
+        "tooltip": "",
+        "group": "376ba607f332bebb",
+        "order": 4,
+        "width": 7,
+        "height": 2,
+        "passthru": true,
+        "outs": "all",
+        "topic": "manual_speed",
+        "topicType": "str",
+        "min": 0,
+        "max": 100,
+        "step": "1",
+        "className": "",
+        "x": 1210,
+        "y": 220,
+        "wires": [
+            [
+                "d7674e4141ba1725",
+                "62507a6e91e2a838"
+            ]
+        ]
+    },
+    {
+        "id": "9267675e0446a63d",
+        "type": "ui_numeric",
+        "z": "13cc7814494b07cd",
+        "name": "độ âm MIN",
+        "label": "Độ ẩm tối thiểu",
+        "tooltip": "",
+        "group": "auto_settings_group",
+        "order": 1,
+        "width": 7,
+        "height": 1,
+        "wrap": false,
+        "passthru": true,
+        "topic": "humidityMin",
+        "topicType": "str",
+        "format": "",
+        "min": "0",
+        "max": "100",
+        "step": "",
+        "className": "",
+        "x": 1210,
+        "y": 460,
+        "wires": [
+            [
+                "1baccfe9f4d2d7db",
+                "37693dd9ba7c39e7"
+            ]
+        ]
+    },
+    {
+        "id": "2528ecd1387924e5",
+        "type": "ui_numeric",
+        "z": "13cc7814494b07cd",
+        "name": "độ ẩm MAX",
+        "label": "Độ ẩm tối đa",
+        "tooltip": "",
+        "group": "auto_settings_group",
+        "order": 2,
+        "width": 7,
+        "height": 1,
+        "wrap": false,
+        "passthru": true,
+        "topic": "humidityMax",
+        "topicType": "str",
+        "format": "",
+        "min": "0",
+        "max": "100",
+        "step": "",
+        "className": "",
+        "x": 1210,
+        "y": 400,
+        "wires": [
+            [
+                "1a1081e33f89649e",
+                "32747980c58f2571"
+            ]
+        ]
+    },
+    {
+        "id": "3c9f19f906e83088",
+        "type": "ui_numeric",
+        "z": "13cc7814494b07cd",
+        "name": "Nhiệt độ MIN",
+        "label": "Nhiệt độ tối thiểu (°C)",
+        "tooltip": "",
+        "group": "auto_settings_group",
+        "order": 3,
+        "width": 7,
+        "height": 1,
+        "wrap": false,
+        "passthru": true,
+        "topic": "temperatureMin",
+        "topicType": "str",
+        "format": "",
+        "min": "0",
+        "max": "100",
+        "step": "",
+        "className": "",
+        "x": 1210,
+        "y": 280,
+        "wires": [
+            [
+                "f9cb0b9ede4eb7bc",
+                "4821fae616305e5e"
+            ]
+        ]
+    },
+    {
+        "id": "51b00233fd0a92d1",
+        "type": "ui_numeric",
+        "z": "13cc7814494b07cd",
+        "name": "Nhiệt MAX",
+        "label": "Nhiệt độ tối đa (°C)",
+        "tooltip": "",
+        "group": "auto_settings_group",
+        "order": 4,
+        "width": 7,
+        "height": 1,
+        "wrap": false,
+        "passthru": true,
+        "topic": "temperatureMax",
+        "topicType": "str",
+        "format": "",
+        "min": "0",
+        "max": "100",
+        "step": "",
+        "className": "",
+        "x": 1210,
+        "y": 340,
+        "wires": [
+            [
+                "f642164e70073c2a",
+                "3498f998eed68c38"
+            ]
+        ]
+    },
+    {
+        "id": "67dc7b79aea153c9",
+        "type": "ui_chart",
+        "z": "13cc7814494b07cd",
+        "name": "Biểu đồ nhiệt độ",
+        "group": "d1f0d7e2f3a2fc76",
+        "order": 9,
+        "width": 7,
+        "height": 4,
+        "label": "Biểu đồ nhiệt độ",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Chưa có dữ liệu",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "1",
+        "removeOlderPoints": "100",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#ff6600",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 2220,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "baa74b84982f2486",
+        "type": "ui_gauge",
+        "z": "13cc7814494b07cd",
+        "name": "Nhiệt độ",
+        "group": "d1f0d7e2f3a2fc76",
+        "order": 1,
+        "width": 3,
+        "height": 2,
+        "gtype": "wave",
+        "title": "Nhiệt độ",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 100,
+        "colors": [
+            "#e82c17",
+            "#2ecc71",
+            "#d3ec13"
+        ],
+        "seg1": "10",
+        "seg2": 60,
+        "diff": false,
+        "className": "",
+        "x": 1680,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "2666b57669d66ef1",
+        "type": "ui_chart",
+        "z": "13cc7814494b07cd",
+        "name": "Biểu đồ Độ ẩm",
+        "group": "d1f0d7e2f3a2fc76",
+        "order": 10,
+        "width": 7,
+        "height": 4,
+        "label": "Biểu đồ Độ ẩm",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "Chưa có dữ liệu",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "1",
+        "removeOlderPoints": "100",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#ff6600",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000",
+            "#000000"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1760,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1baccfe9f4d2d7db",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Lưu độ ẩm min Trạm HCM",
+        "func": "flow.set(\"humidityMin\", msg.payload);\nreturn null;",
+        "outputs": 0,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2020,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "1a1081e33f89649e",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Lưu độ ẩm max Trạm HCM",
+        "func": "flow.set(\"humidityMax\", msg.payload);\nreturn null;",
+        "outputs": 0,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2020,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "f9cb0b9ede4eb7bc",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Lưu nhiệt độ min Trạm HCM",
+        "func": "flow.set(\"temperatureMin\", msg.payload);\nreturn null;",
+        "outputs": 0,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2020,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "f642164e70073c2a",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Lưu nhiệt độ max Trạm HCM",
+        "func": "flow.set(\"temperatureMax\", msg.payload);\nreturn null;",
+        "outputs": 0,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2020,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "d59488cbed3d1480",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Lưu nhiệt độ hiện tại",
+        "func": "flow.set(\"currentTemperature\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2000,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "94720f40b755f196",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Lưu độ ẩm hiện tại",
+        "func": "flow.set(\"currentHumidity\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1530,
+        "y": 140,
+        "wires": [
+            [
+                "2666b57669d66ef1"
+            ]
+        ]
+    },
+    {
+        "id": "40d33556b2e73653",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramHCM/tocdonhan1PLC",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 257.0000534057617,
+        "y": 214.99999690055847,
+        "wires": [
+            [
+                "e905c5cebe05c721"
+            ]
+        ]
+    },
+    {
+        "id": "d7674e4141ba1725",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuRA",
+        "topic": "HaMinhDat/feeds/tramHCM/tocdohienthi",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "87342c91b7a6a919",
+        "x": 1500,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "77bbae8353ef0f07",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuRA",
+        "topic": "HaMinhDat/feeds/tramHCM/nhietdogui",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "87342c91b7a6a919",
+        "x": 1500,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "5ff41ba99a736e10",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramHCM/nhietdominnhanPLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 980,
+        "y": 280,
+        "wires": [
+            [
+                "3c9f19f906e83088"
+            ]
+        ]
+    },
+    {
+        "id": "4821fae616305e5e",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "tinheiuRA",
+        "topic": "HaMinhDat/feeds/tramHCM/nhietdomingui",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "87342c91b7a6a919",
+        "x": 1500,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "0bf5b25a75d67952",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramHCM/doammaxnhanPLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 980,
+        "y": 400,
+        "wires": [
+            [
+                "2528ecd1387924e5"
+            ]
+        ]
+    },
+    {
+        "id": "32747980c58f2571",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "tinheiuRA",
+        "topic": "HaMinhDat/feeds/tramHCM/doammaxgui",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "87342c91b7a6a919",
+        "x": 1500,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "1dcc1ee1b1a38938",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramHCM/nhietdomaxnhanPLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 980,
+        "y": 340,
+        "wires": [
+            [
+                "51b00233fd0a92d1"
+            ]
+        ]
+    },
+    {
+        "id": "3498f998eed68c38",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuRA",
+        "topic": "HaMinhDat/feeds/tramHCM/nhietdomaxgui",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "87342c91b7a6a919",
+        "x": 1500,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "e306c2e6e1db94fa",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramHCM/doamminnhanPLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 980,
+        "y": 460,
+        "wires": [
+            [
+                "9267675e0446a63d"
+            ]
+        ]
+    },
+    {
+        "id": "37693dd9ba7c39e7",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuRA",
+        "topic": "HaMinhDat/feeds/tramHCM/doammingui",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "87342c91b7a6a919",
+        "x": 1500,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "0a13300c519bc06e",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramHCM/tocdohienthiPLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1820,
+        "y": 220,
+        "wires": [
+            [
+                "c6213376ad472bea"
+            ]
+        ]
+    },
+    {
+        "id": "c6213376ad472bea",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Chuẩn hóa 0–100 (%)",
+        "func": "// Chuẩn hóa giá trị % về số trong khoảng 0..100\nfunction parseAny(x) {\n  if (typeof x === 'number') return x;\n\n  if (typeof x === 'string') {\n    let s = x.trim();\n\n    // bỏ dấu % và khoảng trắng\n    s = s.replace(/\\s+/g, '').replace('%', '');\n\n    // Các trường hợp số thập phân dùng dấu phẩy:\n    // - \"52,2\"\n    // - \"1.234,5\" (dấu . là phân tách hàng nghìn)\n    // Quy tắc: bỏ hết dấu chấm, đổi dấu phẩy thành chấm.\n    if (/,/.test(s)) {\n      s = s.replace(/\\./g, '').replace(',', '.');\n    }\n\n    // Nếu chỉ có dấu chấm (thập phân chuẩn) thì giữ nguyên\n    const n = Number(s);\n    if (!Number.isNaN(n)) return n;\n    return undefined;\n  }\n\n  // object có thuộc tính pumpSpeed (có thể là \"52,2\")\n  if (x && typeof x === 'object') {\n    const cand = x.pumpSpeed ?? x.value ?? x.speed;\n    return parseAny(cand);\n  }\n\n  return undefined;\n}\n\nlet v = parseAny(msg.payload);\nif (v === undefined) return null;\n\n// Giới hạn 0..100 và làm tròn 1 chữ số thập phân\nv = Math.max(0, Math.min(100, v));\nmsg.payload = Math.round(v * 10) / 10;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2000,
+        "y": 220,
+        "wires": [
+            [
+                "28dda6e39816734b"
+            ]
+        ]
+    },
+    {
+        "id": "28dda6e39816734b",
+        "type": "ui_template",
+        "z": "13cc7814494b07cd",
+        "group": "d1f0d7e2f3a2fc76",
+        "name": "Thanh mức xanh đậm-nhạt",
+        "order": 7,
+        "width": 7,
+        "height": 2,
+        "format": "<style>\n  .pump-title{font-weight:800;margin-bottom:5px;color:#FFD700;}\n  .pump-wrap{position:relative;width:100%;height:45px;background:#e6f2ff;border-radius:999px;overflow:hidden;box-shadow:inset 0 0 3px #aacfff;}\n  .pump-fill{height:100%;border-radius:999px;transition:width 0.4s ease,background 0.4s ease;}\n  .pump-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#002b80;}\n</style>\n<div class=\"pump-title\">TỐC ĐỘ BƠM</div>\n<div class=\"pump-wrap\">\n  <div id=\"pumpFill{{$id}}\" class=\"pump-fill\" style=\"width:{{val}}%;background:linear-gradient(90deg,#80d4ff,#1a8cff,#005ce6);\"></div>\n  <div class=\"pump-text\">{{val}}%</div>\n</div>\n<script>\n(function(scope){\n  scope.val = 0;\n  const fill = document.getElementById('pumpFill'+scope.$id);\n  scope.$watch('msg', function(msg){\n    if(!msg) return;\n    var v = Number(msg.payload);\n    if(isNaN(v)) return;\n    v = Math.max(0, Math.min(100, v));\n    scope.val = Math.round(v*10)/10;\n    // đổi độ đậm nhạt theo giá trị\n    let color;\n    if (v < 40) color = 'linear-gradient(90deg,#a0e6ff,#4db8ff,#1a8cff)';\n    else if (v < 70) color = 'linear-gradient(90deg,#4db8ff,#1a8cff,#0066ff)';\n    else color = 'linear-gradient(90deg,#1a8cff,#0066ff,#003cb3)';\n    fill.style.width = v + '%';\n    fill.style.background = color;\n  });\n})(scope);\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 2240,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "360eae28610bb8aa",
+        "type": "ui_button",
+        "z": "13cc7814494b07cd",
+        "name": "Bật hệ thống",
+        "group": "d1f0d7e2f3a2fc75",
+        "order": 3,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "START",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "btn-start",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "str",
+        "topic": "system",
+        "topicType": "str",
+        "x": 90,
+        "y": 260,
+        "wires": [
+            [
+                "0433f02c43129579"
+            ]
+        ]
+    },
+    {
+        "id": "eede57f77ff6f037",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramHCM/startnhanPLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 120,
+        "y": 320,
+        "wires": [
+            [
+                "0433f02c43129579"
+            ]
+        ]
+    },
+    {
+        "id": "0433f02c43129579",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "On START -> mark started",
+        "func": "const G_MANUAL = \"376ba607f332bebb\";\nconst G_AUTO   = \"auto_settings_group\";\nconst SID = flow.get(\"socketid\");   // <— quan trọng\n\nflow.set('started', true);\nflow.set('mode', 'IDLE');\n\nnode.send([\n  { payload: \"true\", topic: \"HaMinhDat/feeds/tramHCM/startgui\" },\n  // Ẩn cả Manual & Auto, NHẮM ĐÚNG client bằng socketid\n  { socketid: SID, payload: { group: { hide: [G_MANUAL, G_AUTO] } } },\n  null\n]);\n\nsetTimeout(() => {\n  node.send([{ payload: \"false\", topic: \"HaMinhDat/feeds/tramHCM/startgui\" }, null, null]);\n}, 400);\n\nreturn null;\n",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 280,
+        "wires": [
+            [
+                "fb3da2590f9a39b1"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "fb3da2590f9a39b1",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "tinheiuRA",
+        "topic": "HaMinhDat/feeds/tramHCM/startgui",
+        "qos": "",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "87342c91b7a6a919",
+        "x": 640,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "3bb0b0f9b0c05038",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "STOP ALL",
+        "func": "// Khi STOP thì ép OFF tất cả switch\nlet switchTopics = [\"led0\"];\n\nlet msgs = [];\nfor (let s of switchTopics) {\n    msgs.push({ topic: s, payload: false });\n}\n\nreturn [msgs];\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 360,
+        "wires": [
+            [
+                "e905c5cebe05c721",
+                "2528ecd1387924e5",
+                "3c9f19f906e83088",
+                "51b00233fd0a92d1",
+                "fb3da2590f9a39b1",
+                "50801b4744d78337",
+                "9267675e0446a63d",
+                "cbc2ea9454528860",
+                "8e1154311cc0f198",
+                "885a9e7cbdc7da58",
+                "32f5b08575037d47"
+            ]
+        ]
+    },
+    {
+        "id": "24b37bfb935c8a80",
+        "type": "ui_button",
+        "z": "13cc7814494b07cd",
+        "name": "TẮT HỆ THỐNG",
+        "group": "d1f0d7e2f3a2fc75",
+        "order": 4,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "STOP",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "btn-stop",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "str",
+        "topic": "system",
+        "topicType": "str",
+        "x": 110,
+        "y": 460,
+        "wires": [
+            [
+                "c07d9791b48d317d"
+            ]
+        ]
+    },
+    {
+        "id": "c07d9791b48d317d",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "On STOP -> mark started",
+        "func": "// Out1 -> MQTT stopgui (pulse true -> false)\n// Out2 -> Locker UI: { started: false }  (topic 'started_state')\n// Out3 -> Publish mode (retained): 'IDLE' (topic 'HaMinhDat/feeds/tramCM/mode')\n\nflow.set('started', false);\nflow.set('mode', 'IDLE');\n\nnode.status({ fill: 'red', shape: 'ring', text: 'started=false, mode=IDLE' });\n\n// phát xung STOP ngay\nnode.send([\n  { payload: \"true\",  topic: \"HaMinhDat/feeds/tramHCM/stopgui\" }, // Out1\n  { started: false,   topic: \"started_state\" },                   // Out2\n  { payload: \"IDLE\",  topic: \"HaMinhDat/feeds/tramHCM/mode\" }     // Out3\n]);\n\n// hạ xung STOP sau 0.5s\nsetTimeout(() => {\n  node.send([\n    { payload: \"false\", topic: \"HaMinhDat/feeds/tramHCM/stopgui\" }, // Out1\n    null,                                                          // Out2\n    null                                                           // Out3\n  ]);\n}, 1500);\n\nreturn null;\n",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 460,
+        "wires": [
+            [
+                "50801b4744d78337"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "50801b4744d78337",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "tinheiuRA",
+        "topic": "HaMinhDat/feeds/tramHCM/stopgui",
+        "qos": "",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "87342c91b7a6a919",
+        "x": 720,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "034267ee59a6e40e",
+        "type": "inject",
+        "z": "13cc7814494b07cd",
+        "name": "Init lock (started=false)",
+        "props": [
+            {
+                "p": "started",
+                "v": "false",
+                "vt": "bool"
+            }
+        ],
+        "repeat": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "started_state",
+        "x": 440,
+        "y": 60,
+        "wires": [
+            [
+                "c0f0234f7ef40e84"
+            ]
+        ]
+    },
+    {
+        "id": "c0f0234f7ef40e84",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "flow.started = false on deploy",
+        "func": "flow.set('started', false);\nreturn null;",
+        "outputs": 0,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "8bf078c728088da0",
+        "type": "ui_button",
+        "z": "13cc7814494b07cd",
+        "name": "MANUAL",
+        "group": "d1f0d7e2f3a2fc75",
+        "order": 6,
+        "width": 2,
+        "height": 1,
+        "passthru": true,
+        "label": "MANUAL",
+        "tooltip": "",
+        "color": "#FFFFFF",
+        "bgcolor": "#374151",
+        "className": "",
+        "icon": "",
+        "payload": "manual",
+        "payloadType": "str",
+        "topic": "mode",
+        "topicType": "str",
+        "x": 640,
+        "y": 660,
+        "wires": [
+            [
+                "5992ed61c1397297"
+            ]
+        ]
+    },
+    {
+        "id": "2558ae324a1e424a",
+        "type": "ui_button",
+        "z": "13cc7814494b07cd",
+        "name": "AUTO",
+        "group": "d1f0d7e2f3a2fc75",
+        "order": 7,
+        "width": 2,
+        "height": 1,
+        "passthru": false,
+        "label": "AUTO",
+        "tooltip": "",
+        "color": "#0B1220",
+        "bgcolor": "#0EA5E9",
+        "className": "",
+        "icon": "",
+        "payload": "auto",
+        "payloadType": "str",
+        "topic": "mode",
+        "topicType": "str",
+        "x": 630,
+        "y": 780,
+        "wires": [
+            [
+                "1a141fc1e8d75041"
+            ]
+        ]
+    },
+    {
+        "id": "5992ed61c1397297",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Pulse MANUAL -> set mode",
+        "func": "// BỎ CHẶN nếu muốn test nhanh (hoặc giữ lại tuỳ anh)\n// const started = flow.get('started') === true;\n// if (!started) { node.status({fill:'red',shape:'ring',text:'locked: press START'}); return null; }\nnode.status({});\n\nlet m = (msg.payload || '').toString().toUpperCase();\nif (m !== 'MANUAL') return null;\n\n// Cập nhật logic nội bộ\nflow.set('mode', 'MANUAL');\n\n// Output 1: xung GUI (retain=false)\n// Output 2: publish mode (retain=true) ---> GỬI IN HOA để bên cloud/thiết bị dễ so sánh\nnode.send([\n  { payload: 'true',  topic: 'HaMinhDat/feeds/tramHCM/manualgui' },\n  { payload: 'MANUAL', topic: 'HaMinhDat/feeds/tramHCM/mode' }\n]);\n\nsetTimeout(() => {\n  node.send([\n    { payload: 'false', topic: 'HaMinhDat/feeds/tramHCM/manualgui' },\n    null\n  ]);\n}, 500);\n\nreturn null;\n",
+        "outputs": 3,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 660,
+        "wires": [
+            [
+                "cbc2ea9454528860"
+            ],
+            [],
+            [
+                "9306c0d487ab2be3"
+            ]
+        ]
+    },
+    {
+        "id": "1a141fc1e8d75041",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Pulse AUTO -> set mode",
+        "func": "// BỎ CHẶN nếu muốn test nhanh (hoặc giữ lại tuỳ anh)\n// const started = flow.get('started') === true;\n// if (!started) { node.status({fill:'red',shape:'ring',text:'locked: press START'}); return null; }\nnode.status({});\n\nlet m = (msg.payload || '').toString().toUpperCase();\nif (m !== 'AUTO') return null;\n\n// Cập nhật logic nội bộ\nflow.set('mode', 'AUTO');\n\n// Output 1: xung GUI (retain=false)\n// Output 2: publish mode (retain=true) ---> GỬI IN HOA\nnode.send([\n  { payload: 'true', topic: 'HaMinhDat/feeds/tramHCM/autogui' },\n  { payload: 'AUTO', topic: 'HaMinhDat/feeds/tramHCM/mode' }\n]);\n\nsetTimeout(() => {\n  node.send([\n    { payload: 'false', topic: 'HaMinhDat/feeds/tramHCM/autogui' },\n    null\n  ]);\n}, 500);\n\nreturn null;\n",
+        "outputs": 3,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 780,
+        "wires": [
+            [
+                "8e1154311cc0f198"
+            ],
+            [],
+            [
+                "9306c0d487ab2be3"
+            ]
+        ]
+    },
+    {
+        "id": "cbc2ea9454528860",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "manualgui (pulse)",
+        "topic": "HaMinhDat/feeds/tramHCM/manualgui",
+        "qos": "",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "87342c91b7a6a919",
+        "x": 1070,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "8e1154311cc0f198",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "autogui (pulse)",
+        "topic": "HaMinhDat/feeds/tramHCM/autogui",
+        "qos": "",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "87342c91b7a6a919",
+        "x": 1060,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "9306c0d487ab2be3",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "mode (retained)",
+        "topic": "HaMinhDat/feeds/tramHCM/mode",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "87342c91b7a6a919",
+        "x": 1060,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "0dc6e110cc300ae9",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "modenhantinhieu",
+        "topic": "HaMinhDat/feeds/tramHCM/manualnhantinhieuPLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 480,
+        "y": 660,
+        "wires": [
+            [
+                "5992ed61c1397297"
+            ]
+        ]
+    },
+    {
+        "id": "78bc3df88ea96416",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "modenhantinhieu",
+        "topic": "HaMinhDat/feeds/tramHCM/autonhantinhieuPLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 480,
+        "y": 780,
+        "wires": [
+            [
+                "1a141fc1e8d75041"
+            ]
+        ]
+    },
+    {
+        "id": "61fd233292dd1a6d",
+        "type": "inject",
+        "z": "13cc7814494b07cd",
+        "name": "Kiểm tra định kỳ",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 450,
+        "y": 920,
+        "wires": [
+            [
+                "d2f4ac0e55da8852"
+            ]
+        ]
+    },
+    {
+        "id": "361d41179441d4a0",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Kiểm tra cảnh báo",
+        "func": "// Nếu hệ thống chưa START thì hiện thông báo \"Hệ thống đã tắt!\"\nif (flow.get('started') !== true) {\n  msg.payload  = \"🔘 Hệ thống đã tắt!\";\n  msg.severity = \"INFO\";\n  msg.mode     = \"IDLE\";\n  return msg;\n}\n\n// Nếu chưa START thì không phát cảnh báo\nif (flow.get('started') !== true) { return null; }\n\n/***** LẤY NGƯỠNG & GIÁ TRỊ HIỆN TẠI *****/\nconst hMin = Number(flow.get(\"humidityMin\"));\nconst hMax = Number(flow.get(\"humidityMax\"));\nconst tMin = Number(flow.get(\"temperatureMin\"));\nconst tMax = Number(flow.get(\"temperatureMax\"));\n\nconst humidity    = Number(flow.get(\"currentHumidity\"));\nconst temperature = Number(flow.get(\"currentTemperature\"));\n\n/***** XÁC ĐỊNH CHẾ ĐỘ *****/\nlet mode = (flow.get(\"mode\") || \"\").toString().toUpperCase();\nif (mode !== \"AUTO\" && mode !== \"MANUAL\") {\n  if (flow.get(\"auto\") === true)       mode = \"AUTO\";\n  else if (flow.get(\"manual\") === true) mode = \"MANUAL\";\n  else                                   mode = \"MANUAL\"; // mặc định\n}\n\n/***** BỘ THU KẾT QUẢ *****/\nconst thongBao = []; // cấp Thông báo (nhẹ)\nconst canhBao  = []; // cấp Cảnh báo (nặng)\n\n/***** KIỂM TRA LỖI NHẬP LIỆU *****/\nconst nhapLieuLoi = [];\nif (!Number.isNaN(tMin) && !Number.isNaN(tMax) && tMin > tMax) {\n  nhapLieuLoi.push(\"⚠️ LỖI NHẬP LIỆU: Nhiệt độ MIN lớn hơn MAX!\");\n}\nif (!Number.isNaN(hMin) && !Number.isNaN(hMax) && hMin > hMax) {\n  nhapLieuLoi.push(\"⚠️ LỖI NHẬP LIỆU: Độ ẩm MIN lớn hơn MAX!\");\n}\nif (nhapLieuLoi.length > 0) {\n  msg.payload  = nhapLieuLoi.join(\"<br>\");\n  msg.severity = \"ALERT\";\n  msg.mode     = mode;\n  msg.data     = { temperature, humidity, tMin, tMax, hMin, hMax };\n  return msg;\n}\n\n/***** NẾU CHƯA CÓ DỮ LIỆU CẢM BIẾN *****/\nif (Number.isNaN(temperature) || Number.isNaN(humidity)) {\n  msg.payload  = \"⚠️ Chưa có dữ liệu cảm biến!\";\n  msg.severity = \"INFO\";\n  msg.mode     = mode;\n  msg.data     = { temperature, humidity, tMin, tMax, hMin, hMax };\n  return msg;\n}\n\n/***** CẢNH BÁO — ÁP DỤNG MỌI CHẾ ĐỘ *****/\n// TH1: nhiệt độ = 0 VÀ độ ẩm = 0\nif (temperature === 0 && humidity === 0) {\n  canhBao.push(\"🚨 CẢNH BÁO: HỎNG CẢM BIẾN (nhiệt độ=0 & độ ẩm=0)\");\n}\n// TH2: nhiệt độ >= 60 VÀ độ ẩm >= 90\nif (temperature >= 60 && humidity >= 90) {\n  canhBao.push(\"🚨 CẢNH BÁO: NHIỆT & ẨM QUÁ CAO (≥60°C & ≥90%)\");\n}\n// TH3: nhiệt độ < 10\nif (temperature < 10) {\n  canhBao.push(\"🚨 CẢNH BÁO: NHIỆT ĐỘ QUÁ THẤP (<10°C)\");\n}\n\n/***** THÔNG BÁO *****/\nif (mode === \"MANUAL\") {\n  // TH1: nhiệt độ = 0 HOẶC độ ẩm = 0\n  if (temperature === 0 || humidity === 0) {\n    thongBao.push(\"ℹ️ THÔNG BÁO: THIẾT BỊ HỎNG CẢM BIẾN (một trong hai bằng 0)\");\n  }\n  // TH2: nhiệt độ >= 60\n  if (temperature >= 60) {\n    thongBao.push(\"ℹ️ THÔNG BÁO: NHIỆT ĐỘ QUÁ CAO (≥60°C)\");\n  }\n  // TH3: độ ẩm >= 90\n  if (humidity >= 90) {\n    thongBao.push(\"ℹ️ THÔNG BÁO: ĐỘ ẨM QUÁ CAO (≥90%)\");\n  }\n  // TH4: nhiệt độ < 10\n  if (temperature < 10) {\n    thongBao.push(\"ℹ️ THÔNG BÁO: NHIỆT ĐỘ QUÁ THẤP (<10°C)\");\n  }\n  // TH5: độ ẩm <= 35\n  if (humidity <= 35) {\n    thongBao.push(\"ℹ️ THÔNG BÁO: ĐỘ ẨM QUÁ THẤP (≤35%)\");\n  }\n} else { // AUTO\n  // TH1: nhiệt độ < min\n  if (!Number.isNaN(tMin) && temperature < tMin) {\n    thongBao.push(`ℹ️ THÔNG BÁO: NHIỆT ĐỘ DƯỚI NGƯỠNG (T=${temperature}°C < min=${tMin}°C)`);\n  }\n  // TH2: nhiệt độ > max\n  if (!Number.isNaN(tMax) && temperature > tMax) {\n    thongBao.push(`ℹ️ THÔNG BÁO: NHIỆT ĐỘ TRÊN NGƯỠNG (T=${temperature}°C > max=${tMax}°C)`);\n  }\n  // TH3: độ ẩm < min\n  if (!Number.isNaN(hMin) && humidity < hMin) {\n    thongBao.push(`ℹ️ THÔNG BÁO: ĐỘ ẨM DƯỚI NGƯỠNG (H=${humidity}% < min=${hMin}%)`);\n  }\n  // TH4: độ ẩm > max\n  if (!Number.isNaN(hMax) && humidity > hMax) {\n    thongBao.push(`ℹ️ THÔNG BÁO: ĐỘ ẨM TRÊN NGƯỠNG (H=${humidity}% > max=${hMax}%)`);\n  }\n}\n\n/***** ƯU TIÊN: CẢNH BÁO > THÔNG BÁO *****/\nlet payloadText = \"\";\nlet severity = \"OK\"; // OK | INFO | ALERT\n\nif (canhBao.length > 0) {\n  payloadText = canhBao.join(\"<br>\");  // mỗi trạng thái xuống dòng riêng\n  severity = \"ALERT\";\n} else if (thongBao.length > 0) {\n  payloadText = thongBao.join(\"<br>\");\n  severity = \"INFO\";\n} else {\n  payloadText = \"✅ Mọi giá trị bình thường.\";\n  severity = \"OK\";\n}\n\n/***** TRẢ KẾT QUẢ RA UI *****/\nmsg.payload  = payloadText;\nmsg.mode     = mode;\nmsg.severity = severity;\nmsg.data     = { temperature, humidity, tMin, tMax, hMin, hMax };\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "0",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 920,
+        "wires": [
+            [
+                "97784feb0b498aaf"
+            ]
+        ]
+    },
+    {
+        "id": "d2f4ac0e55da8852",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "function 1",
+        "func": "// Nếu hệ thống chưa START thì hiện thông báo \"Hệ thống đã tắt!\"\nif (flow.get('started') !== true) {\n  msg.payload  = \"🔘 Hệ thống đã tắt!\";\n  msg.severity = \"INFO\";           // để ui_template vẫn render\n  msg.mode     = \"IDLE\";\n  return msg;                      // trả ra UI\n}\n\n// ... (giữ nguyên phần còn lại như bạn đang có)\n\n/***** NGƯỠNG & GIÁ TRỊ *****/\n// Lấy ngưỡng từ flow context\nconst hMin = Number(flow.get(\"humidityMin\"));\nconst hMax = Number(flow.get(\"humidityMax\"));\nconst tMin = Number(flow.get(\"temperatureMin\"));\nconst tMax = Number(flow.get(\"temperatureMax\"));\n\n// Lấy giá trị cảm biến hiện tại\nconst humidity    = Number(flow.get(\"currentHumidity\"));\nconst temperature = Number(flow.get(\"currentTemperature\"));\n\n// Xác định chế độ vận hành\nlet mode = (flow.get(\"mode\") || \"\").toString().toUpperCase();\nif (mode !== \"AUTO\" && mode !== \"MANUAL\") {\n  if (flow.get(\"auto\") === true)  mode = \"AUTO\";\n  else if (flow.get(\"manual\") === true) mode = \"MANUAL\";\n  else mode = \"MANUAL\"; // mặc định MANUAL\n}\n\n/***** LOGIC KIỂM TRA *****/\nconst thongBao = [];\nconst canhBao  = [];\n\n// Nếu chưa có dữ liệu cảm biến thì cảnh báo nhẹ để biết\nif (Number.isNaN(temperature) || Number.isNaN(humidity)) {\n  msg.payload  = \"⚠️ Chưa có dữ liệu cảm biến!\";\n  msg.severity = \"INFO\";\n  msg.mode     = mode;\n  msg.data     = { temperature, humidity, tMin, tMax, hMin, hMax };\n  return msg;\n}\n\n/***** CẢNH BÁO (mức nặng) — áp dụng mọi chế độ *****/\n// TH1: nhiệt độ = 0 & độ ẩm = 0\nif (temperature === 0 && humidity === 0) {\n  canhBao.push(\"🚨 CẢNH BÁO: HỎNG CẢM BIẾN (nhiệt độ=0 & độ ẩm=0)\");\n}\n// TH2: nhiệt độ >= 60 & độ ẩm >= 90\nif (temperature >= 60 && humidity >= 90) {\n  canhBao.push(\"🚨 CẢNH BÁO: NHIỆT & ẨM QUÁ CAO (≥60°C & ≥90%)\");\n}\n// TH3: nhiệt độ < 10\nif (temperature < 10) {\n  canhBao.push(\"🚨 CẢNH BÁO: NHIỆT ĐỘ QUÁ THẤP (<10°C)\");\n}\n\n/***** THÔNG BÁO (mức nhẹ) *****/\nif (mode === \"MANUAL\") {\n  // TH1: nhiệt độ = 0 HOẶC độ ẩm = 0\n  if (temperature === 0 || humidity === 0) {\n    thongBao.push(\"ℹ️ THÔNG BÁO: THIẾT BỊ HỎNG CẢM BIẾN (một trong hai bằng 0)\");\n  }\n  // TH2: nhiệt độ >= 60\n  if (temperature >= 60) {\n    thongBao.push(\"ℹ️ THÔNG BÁO: NHIỆT ĐỘ QUÁ CAO (≥60°C)\");\n  }\n  // TH3: độ ẩm >= 90\n  if (humidity >= 90) {\n    thongBao.push(\"ℹ️ THÔNG BÁO: ĐỘ ẨM QUÁ CAO (≥90%)\");\n  }\n  // TH4: nhiệt độ < 10\n  if (temperature < 10) {\n    thongBao.push(\"ℹ️ THÔNG BÁO: NHIỆT ĐỘ QUÁ THẤP (<10°C)\");\n  }\n  // TH5: độ ẩm <= 35\n  if (humidity <= 35) {\n    thongBao.push(\"ℹ️ THÔNG BÁO: ĐỘ ẨM QUÁ THẤP (≤35%)\");\n  }\n} else if (mode === \"AUTO\") {\n  // TH1: nhiệt độ < min\n  if (!Number.isNaN(tMin) && temperature < tMin) {\n    thongBao.push(`ℹ️ THÔNG BÁO: NHIỆT ĐỘ DƯỚI NGƯỠNG (T=${temperature}°C < min=${tMin}°C)`);\n  }\n  // TH2: nhiệt độ > max\n  if (!Number.isNaN(tMax) && temperature > tMax) {\n    thongBao.push(`ℹ️ THÔNG BÁO: NHIỆT ĐỘ TRÊN NGƯỠNG (T=${temperature}°C > max=${tMax}°C)`);\n  }\n  // TH3: độ ẩm < min\n  if (!Number.isNaN(hMin) && humidity < hMin) {\n    thongBao.push(`ℹ️ THÔNG BÁO: ĐỘ ẨM DƯỚI NGƯỠNG (H=${humidity}% < min=${hMin}%)`);\n  }\n  // TH4: độ ẩm > max\n  if (!Number.isNaN(hMax) && humidity > hMax) {\n    thongBao.push(`ℹ️ THÔNG BÁO: ĐỘ ẨM TRÊN NGƯỠNG (H=${humidity}% > max=${hMax}%)`);\n  }\n}\n\n/***** ƯU TIÊN HIỂN THỊ *****/\nlet payloadText = \"\";\nlet severity = \"OK\"; // OK | INFO | ALERT\nif (canhBao.length > 0) {\n  payloadText = canhBao.join(\"<br>\");\n  severity = \"ALERT\";\n} else if (thongBao.length > 0) {\n  payloadText = thongBao.join(\"<br>\");\n  severity = \"INFO\";\n} else {\n  payloadText = \"✅ Mọi giá trị bình thường.\";\n  severity = \"OK\";\n}\n\n/***** TRẢ KẾT QUẢ *****/\nmsg.payload  = payloadText;     // dùng <br> để xuống dòng trên Dashboard\nmsg.mode     = mode;\nmsg.severity = severity;\nmsg.data     = { temperature, humidity, tMin, tMax, hMin, hMax };\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 920,
+        "wires": [
+            [
+                "361d41179441d4a0"
+            ]
+        ]
+    },
+    {
+        "id": "97784feb0b498aaf",
+        "type": "ui_template",
+        "z": "13cc7814494b07cd",
+        "group": "d1f0d7e2f3a2fc76",
+        "name": "Alert FX (flash/shake/breathe)",
+        "order": 8,
+        "width": 7,
+        "height": 4,
+        "format": "<div ng-if=\"msg && msg.severity\" id=\"fxAlert\"\n     ng-class=\"{\n        'ok':    msg.severity === 'OK',\n        'info':  msg.severity === 'INFO',\n        'alert': msg.severity === 'ALERT'\n     }\">\n  <span ng-bind-html=\"msg.payload\"></span>\n</div>\n\n<style>\n#fxAlert{\n  margin-top:6px; padding:10px 14px; border-radius:10px;\n  border-left:6px solid transparent; color:#fff; font-size:15px;\n  background:#2b2b2b; transition:background .25s, border-color .25s;\n}\n#fxAlert.ok   { background:#1f2f26; border-color:#2ecc71; }\n#fxAlert.info { background:#2f2b1f; border-color:#f1c40f; animation:breathe 2.2s ease-in-out infinite; }\n#fxAlert.alert{ background:#3a1f1f; border-color:#e74c3c; animation:flash .9s ease-in-out 3, shake .34s linear 2; }\n\n@keyframes breathe{ 0%{box-shadow:0 0 0 0 rgba(241,196,15,.35)} 70%{box-shadow:0 0 0 12px rgba(241,196,15,0)} 100%{box-shadow:0 0 0 0 rgba(0,0,0,0)} }\n@keyframes flash{ 0%{filter:brightness(1)} 50%{filter:brightness(1.6)} 100%{filter:brightness(1)} }\n@keyframes shake{ 0%,100%{transform:translateX(0)} 25%{transform:translateX(-3px)} 75%{transform:translateX(3px)} }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1050,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c8560754414005f9",
+        "type": "remote-access",
+        "z": "13cc7814494b07cd",
+        "confignode": "e7a8dd49b703ecc3",
+        "name": "",
+        "verbose": true,
+        "x": 1900,
+        "y": 40,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a160a5b88a47b411",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramHCM/stopnhanPLC",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 120,
+        "y": 380,
+        "wires": [
+            [
+                "3bb0b0f9b0c05038",
+                "c07d9791b48d317d"
+            ]
+        ]
+    },
+    {
+        "id": "bf38414bd124f772",
+        "type": "ui_template",
+        "z": "13cc7814494b07cd",
+        "group": "",
+        "name": "",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\n  /* NÚT CHUYỂN TRẠM HCM — ép nhỏ hơn START/STOP */\n  /* Target cực cụ thể để thắng mọi CSS khác */\n  #btn-switch-hcm.md-button,\n  #btn-switch-hcm.md-button.md-raised,\n  .nr-dashboard-theme #btn-switch-hcm.md-button,\n  .nr-dashboard-theme #btn-switch-hcm.md-button.md-raised {\n    /* kích thước gọn */\n    min-height: 30px !important;   /* override mặc định của md-button */\n    height: 30px !important;\n    padding: 0 12px !important;\n    min-width: unset !important;    /* auto theo nội dung */\n\n    /* kiểu pill viền xanh, nền tối */\n    background: #0E1216 !important;\n    color: #6FE39A !important;\n    border: 2px solid #2E7D32 !important;\n    border-radius: 999px !important;\n    box-shadow: none !important;\n\n    /* chữ nhỏ hơn START/STOP (16px) */\n    font-size: 12px !important;\n    font-weight: 700 !important;\n    letter-spacing: .1px !important;\n    text-transform: none !important;\n    line-height: 1 !important;\n\n    /* đề phòng theme nào đó scale nút */\n    transform: none !important;\n  }\n  /* Nếu theme bọc chữ trong .md-button-content thì ép luôn */\n  #btn-switch-hcm .md-button-content {\n    font-size: 12px !important;\n    font-weight: 700 !important;\n    line-height: 1 !important;\n  }\n  /* Hover/focus */\n  #btn-switch-hcm:hover,\n  #btn-switch-hcm:focus {\n    background: rgba(46,125,50,.10) !important;\n    box-shadow: 0 0 10px rgba(46,125,50,.30) !important;\n    border-color: #79D2A6 !important;\n  }\n</style>\n\n<!-- Nút chuyển qua trạm HCM: NHỎ HƠN START/STOP -->\n<md-button id=\"btn-switch-hcm\"\n           class=\"md-raised\"\n           ng-click=\"send({topic:'nav', payload:'tram1'})\">\n  CHUYỂN QUA TRẠM HỒ CHÍ MINH\n</md-button>\n",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "global",
+        "className": "",
+        "x": 1540,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "62507a6e91e2a838",
+        "type": "ui_text",
+        "z": "13cc7814494b07cd",
+        "group": "376ba607f332bebb",
+        "order": 2,
+        "width": 2,
+        "height": 1,
+        "name": "",
+        "label": "(rate%)",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 1680,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "uiCtl",
+        "type": "ui_ui_control",
+        "z": "13cc7814494b07cd",
+        "name": "capture socketid",
+        "x": 156.00001525878906,
+        "y": 558.9999694824219,
+        "wires": [
+            [
+                "saveSid"
+            ]
+        ]
+    },
+    {
+        "id": "saveSid",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "flow.set('socketid')",
+        "func": "if(msg&&msg.socketid) flow.set('socketid',msg.socketid);\nreturn null;",
+        "outputs": 0,
+        "x": 346.00001525878906,
+        "y": 558.9999694824219,
+        "wires": []
+    },
+    {
+        "id": "fbfaab86721184aa",
+        "type": "ui_ui_control",
+        "z": "13cc7814494b07cd",
+        "name": "capture socketid",
+        "x": 1820,
+        "y": 1980,
+        "wires": [
+            [
+                "bedb5550cdbdfe69"
+            ]
+        ]
+    },
+    {
+        "id": "bedb5550cdbdfe69",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "flow.set('socketid')",
+        "func": "if(msg&&msg.socketid) flow.set('socketid',msg.socketid);\nreturn null;",
+        "outputs": 0,
+        "x": 2010,
+        "y": 1980,
+        "wires": []
+    },
+    {
+        "id": "50b84b0e2421c254",
+        "type": "ui_audio",
+        "z": "13cc7814494b07cd",
+        "name": "AUDIIO",
+        "group": "d1f0d7e2f3a2fc75",
+        "voice": "Microsoft An - Vietnamese (Vietnam)",
+        "always": true,
+        "x": 1900,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "9845343650149ee7",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramHCM/startgui",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1500,
+        "y": 540,
+        "wires": [
+            [
+                "a7100854a61d8197"
+            ]
+        ]
+    },
+    {
+        "id": "3a3fb8dbba4bdde4",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramHCM/stopgui",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1500,
+        "y": 580,
+        "wires": [
+            [
+                "8721fdf4e7ee0e8d"
+            ]
+        ]
+    },
+    {
+        "id": "6c151fe0eca21145",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramHCM/tocdohienthi",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1500,
+        "y": 620,
+        "wires": [
+            [
+                "2502922dfb7c89a5"
+            ]
+        ]
+    },
+    {
+        "id": "30f6a3c2aa0ca7f2",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramHCM/nhietdogui",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1500,
+        "y": 660,
+        "wires": [
+            [
+                "2ae358724ad3b36f"
+            ]
+        ]
+    },
+    {
+        "id": "6815cb1ece095858",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramHCM/doamgui",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1500,
+        "y": 700,
+        "wires": [
+            [
+                "8d400fb64b84d9ac"
+            ]
+        ]
+    },
+    {
+        "id": "6b9e30a4dbe164da",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramHCM/autogui",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1500,
+        "y": 780,
+        "wires": [
+            [
+                "3d3c8aa92e5cc905"
+            ]
+        ]
+    },
+    {
+        "id": "d5097bfa7a5a49e9",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramHCM/manualgui",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1500,
+        "y": 740,
+        "wires": [
+            [
+                "812780342f32e9ac"
+            ]
+        ]
+    },
+    {
+        "id": "ef5280ba2affd528",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "mực nước",
+        "func": "// Nhận số 0..100 từ slider/mqtt -> phát tiếng Việt qua ui_audio\n// Chống spam: CHẮC CHẮN cách nhau ≥ 2000ms và chỉ đọc khi đổi ≥ 2%\n\nconst now = Date.now();\nconst st  = context.get('st') || { t: 0, v: null }; // t=timestamp, v=giá trị trước\n\nlet v = Number(msg.payload);\nif (!Number.isFinite(v)) return null;\n\n// Chuẩn hóa 0..100 và làm tròn 0.1\nv = Math.max(0, Math.min(100, v));\nv = Math.round(v * 10) / 10;\n\nconst dt    = now - st.t;\nconst delta = (st.v == null) ? 100 : Math.abs(v - st.v);\n\n// 1) Bắt buộc cách nhau ≥ 2000 ms\nif (dt < 2000) return null;\n\n// 2) Chỉ đọc khi đổi ≥ 2%\nif (st.v != null && delta < 2) return null;\n\n// Nội dung để TTS đọc\nmsg.payload = ` ${v} phần trăm`;\nmsg.lang    = 'vi-VN';\n// msg.voice = 'Google Tiếng Việt'; // tuỳ trình duyệt\n\ncontext.set('st', { t: now, v });\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1970,
+        "y": 2120,
+        "wires": [
+            [
+                "97fb2f6d8b310149"
+            ]
+        ]
+    },
+    {
+        "id": "f520db6ebd873549",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "nhiệt",
+        "func": "// Đọc TTS khi (1) đã qua ≥ 2000ms và (2) giá trị có thay đổi\n// Input: số 0..100 (slider/mqtt). Output: ui_audio đọc tiếng Việt.\n\nconst now  = Date.now();\nconst last = context.get('last') || { t: 0, v: null };\n\nlet v = Number(msg.payload);\nif (!Number.isFinite(v)) return null;\n\n// Giới hạn 0..100 + làm tròn 0.1 để giảm jitter\nv = Math.max(0, Math.min(100, v));\nv = Math.round(v * 10) / 10;\n\nconst dt = now - last.t;\nconst changed = (last.v === null) ? true : (v !== last.v);\n\n// Chỉ phát khi đủ 2s và có thay đổi\nif (dt < 2000 || !changed) return null;\n\n// Câu nói\nmsg.payload = `nhiệt độ ${v} độ C`;  // đổi thành \"độ ẩm ...\" nếu dùng cho humidity\nmsg.lang    = 'vi-VN';\n// msg.voice = 'Google Tiếng Việt'; // tuỳ trình duyệt\n\ncontext.set('last', { t: now, v });\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1950,
+        "y": 2160,
+        "wires": [
+            [
+                "97fb2f6d8b310149"
+            ]
+        ]
+    },
+    {
+        "id": "c36daa78e10536c8",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "ẩm",
+        "func": "// Nhận số 0..100 từ slider/mqtt -> phát tiếng Việt qua ui_audio\n// Điều kiện đọc: (1) đã qua ≥ 2000ms và (2) giá trị có thay đổi\n\nconst now  = Date.now();\nconst last = context.get('last') || { t: 0, v: null };\n\nlet v = Number(msg.payload);\nif (!Number.isFinite(v)) return null;\n\n// Giới hạn 0..100 và làm tròn 0.1 để giảm rung\nv = Math.max(0, Math.min(100, v));\nv = Math.round(v * 10) / 10;\n\nconst dt = now - last.t;\nconst changed = (last.v === null) ? true : (v !== last.v);\n\n// Chỉ đọc khi đủ 2s và có thay đổi\nif (dt < 2000 || !changed) return null;\n\n// Câu nói\nmsg.payload = `độ ẩm ${v} phần trăm`;\nmsg.lang    = 'vi-VN';\n// msg.voice = 'Google Tiếng Việt'; // tuỳ trình duyệt\n\ncontext.set('last', { t: now, v });\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1950,
+        "y": 2200,
+        "wires": [
+            [
+                "97fb2f6d8b310149"
+            ]
+        ]
+    },
+    {
+        "id": "a9efc7cb363872ed",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "tắt",
+        "func": "// Chỉ cho phép 1 message đi qua mỗi 2000 ms\nconst now  = Date.now();\nconst last = context.get('lastPassTs') || 0;\n\nif (now - last < 2000) {\n    return null; // chưa đủ 2s thì không output\n}\ncontext.set('lastPassTs', now);\n\n// Đổi true/\"true\" -> \"tắt hệ thống\"\nif (msg.payload === true || msg.payload === \"true\") {\n    msg.payload = \"tắt hệ thống\";\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1950,
+        "y": 2080,
+        "wires": [
+            [
+                "97fb2f6d8b310149"
+            ]
+        ]
+    },
+    {
+        "id": "2cf323daf7f2a46c",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "bật",
+        "func": "// Cho phép đi qua tối đa 1 message mỗi 2000 ms\nconst now  = Date.now();\nconst last = context.get('lastPassTs') || 0;\n\n// Nếu chưa đủ 2s kể từ lần pass trước thì chặn lại\nif (now - last < 2000) {\n    return null; // không output\n}\n\n// Đủ 2s rồi: cập nhật mốc thời gian\ncontext.set('lastPassTs', now);\n\n// Logic chuyển đổi payload\nif (msg.payload === true || msg.payload === \"true\") {\n    msg.payload = \"Bật hệ thống\";\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1950,
+        "y": 2040,
+        "wires": [
+            [
+                "97fb2f6d8b310149"
+            ]
+        ]
+    },
+    {
+        "id": "ee91f536725fd1ad",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramCM/startgui",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "1efbf2651ee09679",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1820,
+        "y": 2040,
+        "wires": [
+            [
+                "2cf323daf7f2a46c"
+            ]
+        ]
+    },
+    {
+        "id": "2c1b5fa71416e258",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramCM/stopgui",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "1efbf2651ee09679",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1820,
+        "y": 2080,
+        "wires": [
+            [
+                "a9efc7cb363872ed"
+            ]
+        ]
+    },
+    {
+        "id": "e577f898159e1d2f",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramCM/tocdohienthi",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "1efbf2651ee09679",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1820,
+        "y": 2120,
+        "wires": [
+            [
+                "ef5280ba2affd528"
+            ]
+        ]
+    },
+    {
+        "id": "3e12545af5325025",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramCM/nhietdogui",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "1efbf2651ee09679",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1820,
+        "y": 2160,
+        "wires": [
+            [
+                "f520db6ebd873549"
+            ]
+        ]
+    },
+    {
+        "id": "aa885879b6b1354b",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramCM/doamgui",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "1efbf2651ee09679",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1820,
+        "y": 2200,
+        "wires": [
+            [
+                "c36daa78e10536c8"
+            ]
+        ]
+    },
+    {
+        "id": "053851b8f40f5313",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramCM/autogui",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "1efbf2651ee09679",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1820,
+        "y": 2280,
+        "wires": [
+            [
+                "cfa819bba3aa2a2e"
+            ]
+        ]
+    },
+    {
+        "id": "4b262e93287b1634",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramCM/manualgui",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "1efbf2651ee09679",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 1820,
+        "y": 2240,
+        "wires": [
+            [
+                "a677d46ecdd49f86"
+            ]
+        ]
+    },
+    {
+        "id": "a677d46ecdd49f86",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "manual",
+        "func": "// Báo \"chế độ chỉnh tay\" tối đa 1 lần mỗi 2000ms khi payload là TRUE-ish\n\nfunction isTrue(x){\n  if (x === true) return true;\n  if (typeof x === 'number') return x === 1;\n  if (typeof x === 'string') {\n    const s = x.trim().toLowerCase();\n    return s === 'true' || s === '1' || s === 'on';\n  }\n  return false;\n}\n\nconst now = Date.now();\nconst st  = context.get('st') || { ts: 0 }; // ts = thời điểm báo lần cuối\n\nconst truthy = isTrue(msg.payload);\n\n// Không truthy -> không nói (tuỳ chọn: reset timer nếu muốn)\nif (!truthy) {\n  // Nếu muốn reset khi FALSE, bỏ comment dòng dưới:\n  // context.set('st', { ts: 0 });\n  return null;\n}\n\n// Đã truthy: chỉ báo nếu đủ 2s kể từ lần trước\nif (now - st.ts < 2000) {\n  return null; // chưa đủ 2s\n}\n\n// Nội dung TTS\nmsg.payload = \"chế độ chỉnh tay\"; // hoặc \"Chế độ thủ công\"\nmsg.lang = \"vi-VN\";               // đổi \"en-US\" nếu cần\n// msg.voice = \"Google Tiếng Việt\"; // tuỳ trình duyệt\n\n// Cập nhật mốc thời gian\ncontext.set('st', { ts: now });\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1960,
+        "y": 2240,
+        "wires": [
+            [
+                "97fb2f6d8b310149"
+            ]
+        ]
+    },
+    {
+        "id": "cfa819bba3aa2a2e",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "auto",
+        "func": "// Throttle: tối thiểu 2s mới cho ra 1 lần\nconst now  = Date.now();\nconst last = context.get('lastTs') || 0;\nif (now - last < 2000) return null;\n\n// Hàm kiểm tra \"bật\"\nfunction isTrue(x) {\n  if (x === true) return true;\n  if (typeof x === 'number') return x === 1 || x === 1.0;\n  if (typeof x === 'string') {\n    const s = x.trim().toLowerCase();\n    // mở rộng các từ/câu thường gặp\n    return (\n      s === 'true'   || s === '1'     || s === 'on'   ||\n      s === 'yes'    || s === 'start' || s === 'enable' ||\n      s === 'enabled'|| s === 'open'  ||\n      s === 'auto'   || s === 'tudong' || s === 'tự động' ||\n      s === 'bat'    || s === 'bật'\n    );\n  }\n  return false;\n}\n\nif (!isTrue(msg.payload)) return null;\n\n// Nội dung để phát/hiển thị\nmsg.payload = \"Chế độ tự động\";\nmsg.lang = msg.lang || \"vi-VN\"; // mặc định tiếng Việt\n\ncontext.set('lastTs', now);\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1950,
+        "y": 2280,
+        "wires": [
+            [
+                "97fb2f6d8b310149"
+            ]
+        ]
+    },
+    {
+        "id": "97fb2f6d8b310149",
+        "type": "ui_audio",
+        "z": "13cc7814494b07cd",
+        "name": "AUDIIO",
+        "group": "d1f0d7e2f3a2fc75",
+        "voice": "Microsoft An - Vietnamese (Vietnam)",
+        "always": true,
+        "x": 2380,
+        "y": 2200,
+        "wires": []
+    },
+    {
+        "id": "2502922dfb7c89a5",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "mực nước",
+        "func": "// Nhận số 0..100 từ slider/mqtt -> phát tiếng Việt qua ui_audio\n// Chống spam: CHẮC CHẮN cách nhau ≥ 2000ms và chỉ đọc khi đổi ≥ 2%\n\nconst now = Date.now();\nconst st  = context.get('st') || { t: 0, v: null }; // t=timestamp, v=giá trị trước\n\nlet v = Number(msg.payload);\nif (!Number.isFinite(v)) return null;\n\n// Chuẩn hóa 0..100 và làm tròn 0.1\nv = Math.max(0, Math.min(100, v));\nv = Math.round(v * 10) / 10;\n\nconst dt    = now - st.t;\nconst delta = (st.v == null) ? 100 : Math.abs(v - st.v);\n\n// 1) Bắt buộc cách nhau ≥ 2000 ms\nif (dt < 2000) return null;\n\n// 2) Chỉ đọc khi đổi ≥ 2%\nif (st.v != null && delta < 2) return null;\n\n// Nội dung để TTS đọc\nmsg.payload = ` ${v} phần trăm`;\nmsg.lang    = 'vi-VN';\n// msg.voice = 'Google Tiếng Việt'; // tuỳ trình duyệt\n\ncontext.set('st', { t: now, v });\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1670,
+        "y": 620,
+        "wires": [
+            [
+                "50b84b0e2421c254"
+            ]
+        ]
+    },
+    {
+        "id": "2ae358724ad3b36f",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "nhiệt",
+        "func": "// Đọc TTS khi (1) đã qua ≥ 2000ms và (2) giá trị có thay đổi\n// Input: số 0..100 (slider/mqtt). Output: ui_audio đọc tiếng Việt.\n\nconst now  = Date.now();\nconst last = context.get('last') || { t: 0, v: null };\n\nlet v = Number(msg.payload);\nif (!Number.isFinite(v)) return null;\n\n// Giới hạn 0..100 + làm tròn 0.1 để giảm jitter\nv = Math.max(0, Math.min(100, v));\nv = Math.round(v * 10) / 10;\n\nconst dt = now - last.t;\nconst changed = (last.v === null) ? true : (v !== last.v);\n\n// Chỉ phát khi đủ 2s và có thay đổi\nif (dt < 2000 || !changed) return null;\n\n// Câu nói\nmsg.payload = `nhiệt độ ${v} độ C`;  // đổi thành \"độ ẩm ...\" nếu dùng cho humidity\nmsg.lang    = 'vi-VN';\n// msg.voice = 'Google Tiếng Việt'; // tuỳ trình duyệt\n\ncontext.set('last', { t: now, v });\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1650,
+        "y": 660,
+        "wires": [
+            [
+                "50b84b0e2421c254"
+            ]
+        ]
+    },
+    {
+        "id": "8d400fb64b84d9ac",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "ẩm",
+        "func": "// Nhận số 0..100 từ slider/mqtt -> phát tiếng Việt qua ui_audio\n// Điều kiện đọc: (1) đã qua ≥ 1500ms và (2) giá trị có thay đổi\n\nconst SAMPLE_MS = 1500; // 1.5s\n\nconst now  = Date.now();\nconst last = context.get('last') || { t: 0, v: null };\n\nlet v = Number(msg.payload);\nif (!Number.isFinite(v)) return null;\n\n// Giới hạn 0..100 và làm tròn 0.1 để giảm rung\nv = Math.max(0, Math.min(100, v));\nv = Math.round(v * 10) / 10;\n\nconst dt = now - last.t;\nconst changed = (last.v === null) ? true : (v !== last.v);\n\n// Chỉ đọc khi đủ 1.5s và có thay đổi\nif (dt < SAMPLE_MS || !changed) return null;\n\n// Câu nói\nmsg.payload = `độ ẩm ${v} phần trăm`;\nmsg.lang    = 'vi-VN';\n// msg.voice = 'Google Tiếng Việt'; // tuỳ trình duyệt\n\ncontext.set('last', { t: now, v });\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1650,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8721fdf4e7ee0e8d",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "tắt",
+        "func": "// Chỉ cho phép 1 message đi qua mỗi 2000 ms\nconst now  = Date.now();\nconst last = context.get('lastPassTs') || 0;\n\nif (now - last < 2000) {\n    return null; // chưa đủ 2s thì không output\n}\ncontext.set('lastPassTs', now);\n\n// Đổi true/\"true\" -> \"tắt hệ thống\"\nif (msg.payload === true || msg.payload === \"true\") {\n    msg.payload = \"tắt hệ thống\";\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1650,
+        "y": 580,
+        "wires": [
+            [
+                "50b84b0e2421c254"
+            ]
+        ]
+    },
+    {
+        "id": "a7100854a61d8197",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "bật",
+        "func": "// Cho phép đi qua tối đa 1 message mỗi 2000 ms\nconst now  = Date.now();\nconst last = context.get('lastPassTs') || 0;\n\n// Nếu chưa đủ 2s kể từ lần pass trước thì chặn lại\nif (now - last < 2000) {\n    return null; // không output\n}\n\n// Đủ 2s rồi: cập nhật mốc thời gian\ncontext.set('lastPassTs', now);\n\n// Logic chuyển đổi payload\nif (msg.payload === true || msg.payload === \"true\") {\n    msg.payload = \"Bật hệ thống\";\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1650,
+        "y": 540,
+        "wires": [
+            [
+                "50b84b0e2421c254"
+            ]
+        ]
+    },
+    {
+        "id": "812780342f32e9ac",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "manual",
+        "func": "// Báo \"chế độ chỉnh tay\" tối đa 1 lần mỗi 2000ms khi payload là TRUE-ish\n\nfunction isTrue(x){\n  if (x === true) return true;\n  if (typeof x === 'number') return x === 1;\n  if (typeof x === 'string') {\n    const s = x.trim().toLowerCase();\n    return s === 'true' || s === '1' || s === 'on';\n  }\n  return false;\n}\n\nconst now = Date.now();\nconst st  = context.get('st') || { ts: 0 }; // ts = thời điểm báo lần cuối\n\nconst truthy = isTrue(msg.payload);\n\n// Không truthy -> không nói (tuỳ chọn: reset timer nếu muốn)\nif (!truthy) {\n  // Nếu muốn reset khi FALSE, bỏ comment dòng dưới:\n  // context.set('st', { ts: 0 });\n  return null;\n}\n\n// Đã truthy: chỉ báo nếu đủ 2s kể từ lần trước\nif (now - st.ts < 2000) {\n  return null; // chưa đủ 2s\n}\n\n// Nội dung TTS\nmsg.payload = \"chế độ chỉnh tay\"; // hoặc \"Chế độ thủ công\"\nmsg.lang = \"vi-VN\";               // đổi \"en-US\" nếu cần\n// msg.voice = \"Google Tiếng Việt\"; // tuỳ trình duyệt\n\n// Cập nhật mốc thời gian\ncontext.set('st', { ts: now });\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1660,
+        "y": 740,
+        "wires": [
+            [
+                "50b84b0e2421c254"
+            ]
+        ]
+    },
+    {
+        "id": "3d3c8aa92e5cc905",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "auto",
+        "func": "// Throttle: tối thiểu 2s mới cho ra 1 lần\nconst now  = Date.now();\nconst last = context.get('lastTs') || 0;\nif (now - last < 2000) return null;\n\n// Hàm kiểm tra \"bật\"\nfunction isTrue(x) {\n  if (x === true) return true;\n  if (typeof x === 'number') return x === 1 || x === 1.0;\n  if (typeof x === 'string') {\n    const s = x.trim().toLowerCase();\n    // mở rộng các từ/câu thường gặp\n    return (\n      s === 'true'   || s === '1'     || s === 'on'   ||\n      s === 'yes'    || s === 'start' || s === 'enable' ||\n      s === 'enabled'|| s === 'open'  ||\n      s === 'auto'   || s === 'tudong' || s === 'tự động' ||\n      s === 'bat'    || s === 'bật'\n    );\n  }\n  return false;\n}\n\nif (!isTrue(msg.payload)) return null;\n\n// Nội dung để phát/hiển thị\nmsg.payload = \"Chế độ tự động\";\nmsg.lang = msg.lang || \"vi-VN\"; // mặc định tiếng Việt\n\ncontext.set('lastTs', now);\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1650,
+        "y": 780,
+        "wires": [
+            [
+                "50b84b0e2421c254"
+            ]
+        ]
+    },
+    {
+        "id": "e87731faa4c6cdf1",
+        "type": "ui_button",
+        "z": "13cc7814494b07cd",
+        "name": "xuatbaocao",
+        "group": "3fbc50ed6e69ad2f",
+        "order": 10,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "xuatbaocao",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "btn-stop",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "str",
+        "topic": "system",
+        "topicType": "str",
+        "x": 530,
+        "y": 2360,
+        "wires": [
+            [
+                "90c4133e156b44e4"
+            ]
+        ]
+    },
+    {
+        "id": "90c4133e156b44e4",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "On STOP -> mark started",
+        "func": "// Output #1: gửi cho UI locker (started_state) — có thể giữ nếu anh đang dùng\n// Output #2: gửi MQTT \"HaMinhDat/feeds/tramCM/xuatexcel\": TRUE -> (1s) -> FALSE\n\nflow.set('started', true);\nflow.set('enabled', true);\nflow.set('mode', 'IDLE');\n\nconst TOPIC = \"HaMinhDat/feeds/tramCM/xuatexcel\";\n\n// Báo trạng thái ngay trên node\nnode.status({ fill: 'green', shape: 'dot', text: 'xuatexcel TRUE -> 1s -> FALSE' });\n\n// 1) Gửi TRUE ngay\nnode.send([\n  { started: true, topic: \"started_state\" },             // Output 1 (UI)\n  { topic: TOPIC, payload: true, qos: 1, retain: false } // Output 2 (MQTT)\n]);\n\n// 2) 1 giây sau trả về FALSE\nsetTimeout(() => {\n  node.send([\n    null,                                                // Không gửi lại UI\n    { topic: TOPIC, payload: false, qos: 1, retain: false } // MQTT\n  ]);\n}, 1000);\n\nreturn null;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 2360,
+        "wires": [
+            [
+                "84b5046ad7b92131"
+            ],
+            [
+                "c2e0f0c2bd31309f"
+            ]
+        ]
+    },
+    {
+        "id": "84b5046ad7b92131",
+        "type": "ui_template",
+        "z": "13cc7814494b07cd",
+        "group": "c96834b4b3c54815",
+        "name": "Locker UI (disable until START)",
+        "order": 5,
+        "width": 1,
+        "height": 1,
+        "format": "<div style=\"display:none\"></div>\n<style id=\"requires-start-style\"></style>\n<script>\n(function(scope){\n  var STYLE_ID = 'requires-start-style';\n  function setLocked(locked){\n    var style = document.getElementById(STYLE_ID);\n    if(!style) return;\n    style.textContent = locked\n      ? '.requires-start{pointer-events:none; opacity:.5; filter:grayscale(.3);} .requires-start .md-select-value{cursor:not-allowed!important;}'\n      : '';\n  }\n  // Mặc định: khoá\n  setLocked(true);\n  scope.$watch('msg', function(msg){\n    if(!msg) return;\n    if(msg.started === true){ setLocked(false); }\n    if(msg.started === false){ setLocked(true); }\n  });\n})(scope);\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1450,
+        "y": 2340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4c884d07d7d0b534",
+        "type": "inject",
+        "z": "13cc7814494b07cd",
+        "name": "Init lock (started=false)",
+        "props": [
+            {
+                "p": "started",
+                "v": "false",
+                "vt": "bool"
+            }
+        ],
+        "repeat": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "started_state",
+        "x": 1160,
+        "y": 2380,
+        "wires": [
+            [
+                "84b5046ad7b92131",
+                "3f4b502cd5feef81"
+            ]
+        ]
+    },
+    {
+        "id": "3f4b502cd5feef81",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "flow.started = false on deploy",
+        "func": "flow.set('started', false);\nreturn null;",
+        "outputs": 0,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1440,
+        "y": 2380,
+        "wires": []
+    },
+    {
+        "id": "c2e0f0c2bd31309f",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "xuatexcel",
+        "topic": "HaMinhDat/feeds/tramCM/xuatexcel",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1efbf2651ee09679",
+        "x": 1240,
+        "y": 2480,
+        "wires": []
+    },
+    {
+        "id": "1e271ef324a6dc06",
+        "type": "ui_button",
+        "z": "13cc7814494b07cd",
+        "name": "xuatbaocao",
+        "group": "d1f0d7e2f3a2fc76",
+        "order": 3,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "label": "xuatbaocao",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "btn-stop",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "str",
+        "topic": "system",
+        "topicType": "str",
+        "x": 430,
+        "y": 1000,
+        "wires": [
+            [
+                "ed9d6dc48732a196"
+            ]
+        ]
+    },
+    {
+        "id": "ed9d6dc48732a196",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "On STOP -> mark started",
+        "func": "// Output #1: gửi cho UI locker (started_state) — có thể giữ nếu anh đang dùng\n// Output #2: gửi MQTT \"HaMinhDat/feeds/tramCM/xuatexcel\": TRUE -> (1s) -> FALSE\n\nflow.set('started', true);\nflow.set('enabled', true);\nflow.set('mode', 'IDLE');\n\nconst TOPIC = \"HaMinhDat/feeds/tramCM/xuatexcel\";\n\n// Báo trạng thái ngay trên node\nnode.status({ fill: 'green', shape: 'dot', text: 'xuatexcel TRUE -> 1s -> FALSE' });\n\n// 1) Gửi TRUE ngay\nnode.send([\n  { started: true, topic: \"started_state\" },             // Output 1 (UI)\n  { topic: TOPIC, payload: true, qos: 1, retain: false } // Output 2 (MQTT)\n]);\n\n// 2) 1 giây sau trả về FALSE\nsetTimeout(() => {\n  node.send([\n    null,                                                // Không gửi lại UI\n    { topic: TOPIC, payload: false, qos: 1, retain: false } // MQTT\n  ]);\n}, 1000);\n\nreturn null;\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 1000,
+        "wires": [
+            [
+                "ab45d7ab62e01e55"
+            ],
+            [
+                "317596619f6cfbc4"
+            ]
+        ]
+    },
+    {
+        "id": "ab45d7ab62e01e55",
+        "type": "ui_template",
+        "z": "13cc7814494b07cd",
+        "group": "c96834b4b3c54815",
+        "name": "Locker UI (disable until START)",
+        "order": 5,
+        "width": 1,
+        "height": 1,
+        "format": "<div style=\"display:none\"></div>\n<style id=\"requires-start-style\"></style>\n<script>\n(function(scope){\n  var STYLE_ID = 'requires-start-style';\n  function setLocked(locked){\n    var style = document.getElementById(STYLE_ID);\n    if(!style) return;\n    style.textContent = locked\n      ? '.requires-start{pointer-events:none; opacity:.5; filter:grayscale(.3);} .requires-start .md-select-value{cursor:not-allowed!important;}'\n      : '';\n  }\n  // Mặc định: khoá\n  setLocked(true);\n  scope.$watch('msg', function(msg){\n    if(!msg) return;\n    if(msg.started === true){ setLocked(false); }\n    if(msg.started === false){ setLocked(true); }\n  });\n})(scope);\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1350,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d29583b3c0296928",
+        "type": "inject",
+        "z": "13cc7814494b07cd",
+        "name": "Init lock (started=false)",
+        "props": [
+            {
+                "p": "started",
+                "v": "false",
+                "vt": "bool"
+            }
+        ],
+        "repeat": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "started_state",
+        "x": 1060,
+        "y": 1020,
+        "wires": [
+            [
+                "ab45d7ab62e01e55",
+                "2b5360d590aaa610"
+            ]
+        ]
+    },
+    {
+        "id": "2b5360d590aaa610",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "flow.started = false on deploy",
+        "func": "flow.set('started', false);\nreturn null;",
+        "outputs": 0,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1340,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "317596619f6cfbc4",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "xuatexcel",
+        "topic": "HaMinhDat/feeds/tramCM/xuatexcel",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1efbf2651ee09679",
+        "x": 1140,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "ca343a046a897d64",
+        "type": "function",
+        "z": "13cc7814494b07cd",
+        "name": "Chuẩn hóa 0–100 (%)",
+        "func": "// Chuẩn hóa giá trị % về số trong khoảng 0..100\nfunction parseAny(x) {\n  if (typeof x === 'number') return x;\n\n  if (typeof x === 'string') {\n    let s = x.trim();\n\n    // bỏ dấu % và khoảng trắng\n    s = s.replace(/\\s+/g, '').replace('%', '');\n\n    // Các trường hợp số thập phân dùng dấu phẩy:\n    // - \"52,2\"\n    // - \"1.234,5\" (dấu . là phân tách hàng nghìn)\n    // Quy tắc: bỏ hết dấu chấm, đổi dấu phẩy thành chấm.\n    if (/,/.test(s)) {\n      s = s.replace(/\\./g, '').replace(',', '.');\n    }\n\n    // Nếu chỉ có dấu chấm (thập phân chuẩn) thì giữ nguyên\n    const n = Number(s);\n    if (!Number.isNaN(n)) return n;\n    return undefined;\n  }\n\n  // object có thuộc tính pumpSpeed (có thể là \"52,2\")\n  if (x && typeof x === 'object') {\n    const cand = x.pumpSpeed ?? x.value ?? x.speed;\n    return parseAny(cand);\n  }\n\n  return undefined;\n}\n\nlet v = parseAny(msg.payload);\nif (v === undefined) return null;\n\n// Giới hạn 0..100 và làm tròn 1 chữ số thập phân\nv = Math.max(0, Math.min(100, v));\nmsg.payload = Math.round(v * 10) / 10;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 140,
+        "wires": [
+            [
+                "885a9e7cbdc7da58"
+            ]
+        ]
+    },
+    {
+        "id": "885a9e7cbdc7da58",
+        "type": "ui_template",
+        "z": "13cc7814494b07cd",
+        "group": "d1f0d7e2f3a2fc76",
+        "name": "Thanh mức xanh đậm-nhạt",
+        "order": 6,
+        "width": 7,
+        "height": 2,
+        "format": "<style>\n  .hum-title{font-weight:800;margin-bottom:5px;color:#16a34a;}\n  .hum-wrap{position:relative;width:100%;height:45px;background:#e6f9ec;border-radius:999px;overflow:hidden;box-shadow:inset 0 0 3px #b7e4c7;}\n  .hum-fill{height:100%;border-radius:999px;transition:width 0.4s ease,background 0.4s ease;}\n  .hum-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#065f46;}\n</style>\n\n<div class=\"hum-title\">ĐỘ ẨM</div>\n<div class=\"hum-wrap\" aria-label=\"Humidity bar\">\n  <div id=\"humFill{{$id}}\" class=\"hum-fill\" style=\"width:{{val}}%;background:linear-gradient(90deg,#b6f2c2,#55d68a,#1ea65a);\"></div>\n  <div class=\"hum-text\">{{val}}%</div>\n</div>\n\n<script>\n(function(scope){\n  // ===== Cấu hình chu kỳ lấy mẫu (ms) =====\n  const SAMPLE_MS = 1500; // 1.5s\n\n  // Giá trị hiển thị & bộ đệm\n  scope.val = 0;\n  let pendingV = 0;          // giá trị mới nhất nhận được\n  let hasPending = false;    // cờ cho biết có dữ liệu chờ\n\n  // Phần tử thanh fill (id duy nhất theo widget)\n  const fill = document.getElementById('humFill' + scope.$id);\n\n  // Hàm cập nhật giao diện từ pendingV (gọi theo chu kỳ 1.5s)\n  function render(v){\n    // kẹp 0..100\n    v = Math.max(0, Math.min(100, v));\n\n    // hiển thị 1 chữ số thập phân\n    scope.$applyAsync(function(){\n      scope.val = Math.round(v * 10) / 10;\n    });\n\n    // đổi gradient theo mức (xanh lá)\n    let color;\n    if (v < 40)      color = 'linear-gradient(90deg,#d6f7df,#86e7a8,#3ecf78)';\n    else if (v < 70) color = 'linear-gradient(90deg,#b6f2c2,#55d68a,#1ea65a)';\n    else             color = 'linear-gradient(90deg,#7dde9f,#1ea65a,#0b7d3b)';\n\n    // cập nhật thanh\n    if (fill){\n      fill.style.width = v + '%';\n      fill.style.background = color;\n    }\n  }\n\n  // Watch msg: chỉ GOM dữ liệu, KHÔNG render ngay\n  scope.$watch('msg', function(msg){\n    if(!msg) return;\n\n    // hỗ trợ cả JSON dạng {value: ...} hoặc {payload: ...}\n    let x = msg.payload;\n    if (x && typeof x === 'object') {\n      if ('value' in x) x = x.value;\n      else if ('payload' in x) x = x.payload;\n    }\n\n    const v = Number(x);\n    if (!Number.isFinite(v)) return;\n\n    pendingV = v;\n    hasPending = true;\n  });\n\n  // Bộ định thời: mỗi 1.5s mới render một lần\n  const tick = setInterval(function(){\n    if (hasPending){\n      render(pendingV);\n      hasPending = false; // đã lấy mẫu xong cho chu kỳ này\n    }\n  }, SAMPLE_MS);\n\n  // Dọn tài nguyên khi widget bị hủy\n  scope.$on('$destroy', function(){\n    clearInterval(tick);\n  });\n})(scope);\n</script>\n",
+        "storeOutMessages": false,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1040,
+        "y": 140,
+        "wires": [
+            [
+                "3f99cc80830778ab",
+                "94720f40b755f196"
+            ]
+        ]
+    },
+    {
+        "id": "3f99cc80830778ab",
+        "type": "mqtt out",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuRA",
+        "topic": "HaMinhDat/feeds/tramHCM/doamgui",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "87342c91b7a6a919",
+        "x": 2120,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "97b47e9563f58c52",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramHCM/doamnhanPLC",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 440,
+        "y": 140,
+        "wires": [
+            [
+                "ca343a046a897d64"
+            ]
+        ]
+    },
+    {
+        "id": "32f5b08575037d47",
+        "type": "ui_slider",
+        "z": "13cc7814494b07cd",
+        "name": "Thanh trượt nhiệt độ",
+        "label": "Nhiệt độ (°C)",
+        "tooltip": "",
+        "group": "d1f0d7e2f3a2fc76",
+        "order": 5,
+        "width": 7,
+        "height": 1,
+        "passthru": true,
+        "outs": "all",
+        "topic": "currentTemperature",
+        "topicType": "str",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "className": "",
+        "x": 1220,
+        "y": 100,
+        "wires": [
+            [
+                "baa74b84982f2486",
+                "67dc7b79aea153c9",
+                "d59488cbed3d1480",
+                "77bbae8353ef0f07"
+            ]
+        ]
+    },
+    {
+        "id": "068ae7443bd87e85",
+        "type": "mqtt in",
+        "z": "13cc7814494b07cd",
+        "name": "tinhieuVAO",
+        "topic": "HaMinhDat/feeds/tramHCM/nhietdonhanPLC",
+        "qos": "1",
+        "datatype": "utf8",
+        "broker": "87342c91b7a6a919",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 257.0000534057617,
+        "y": 94.99999690055847,
+        "wires": [
+            [
+                "32f5b08575037d47"
+            ]
+        ]
+    },
+    {
+        "id": "b93b71c7fc22164f",
+        "type": "ui_spacer",
+        "z": "13cc7814494b07cd",
+        "name": "spacer",
+        "group": "c96834b4b3c54815",
+        "order": 6,
+        "width": 7,
+        "height": 1
+    },
+    {
+        "id": "eba87e225bc441e5",
+        "type": "ui_spacer",
+        "z": "13cc7814494b07cd",
+        "name": "spacer",
+        "group": "841cf1e620ca3cfb",
+        "order": 2,
+        "width": 5,
+        "height": 1
+    },
+    {
+        "id": "ec7c84c45337f64f",
+        "type": "ui_spacer",
+        "z": "13cc7814494b07cd",
+        "name": "spacer",
+        "group": "3fbc50ed6e69ad2f",
+        "order": 2,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "aa9f8a8e0b3a1553",
+        "type": "ui_spacer",
+        "z": "13cc7814494b07cd",
+        "name": "spacer",
+        "group": "3fbc50ed6e69ad2f",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "7adbfb461e602f68",
+        "type": "ui_spacer",
+        "z": "13cc7814494b07cd",
+        "name": "spacer",
+        "group": "3fbc50ed6e69ad2f",
+        "order": 5,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "ebfa444a44a55292",
+        "type": "ui_spacer",
+        "z": "13cc7814494b07cd",
+        "name": "spacer",
+        "group": "3fbc50ed6e69ad2f",
+        "order": 6,
+        "width": 7,
+        "height": 1
+    },
+    {
+        "id": "56850fca5ce3d0a1",
+        "type": "ui_spacer",
+        "z": "13cc7814494b07cd",
+        "name": "spacer",
+        "group": "3fbc50ed6e69ad2f",
+        "order": 11,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "9d1094ae34b8c586",
+        "type": "ui_spacer",
+        "z": "13cc7814494b07cd",
+        "name": "spacer",
+        "group": "d1f0d7e2f3a2fc75",
+        "order": 5,
+        "width": 3,
+        "height": 1
+    },
+    {
+        "id": "e72bfd0869e5bb05",
+        "type": "ui_spacer",
+        "z": "13cc7814494b07cd",
+        "name": "spacer",
+        "group": "376ba607f332bebb",
+        "order": 1,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "04af59eb1f60a947",
+        "type": "ui_spacer",
+        "z": "13cc7814494b07cd",
+        "name": "spacer",
+        "group": "376ba607f332bebb",
+        "order": 3,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "58185693b38f38d2",
+        "type": "ui_spacer",
+        "z": "13cc7814494b07cd",
+        "name": "spacer",
+        "group": "d1f0d7e2f3a2fc76",
+        "order": 2,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "cdceb4ca877b1171",
+        "type": "ui_spacer",
+        "z": "13cc7814494b07cd",
+        "name": "spacer",
+        "group": "d1f0d7e2f3a2fc76",
+        "order": 4,
+        "width": 1,
+        "height": 1
+    },
+    {
+        "id": "87342c91b7a6a919",
+        "type": "mqtt-broker",
+        "name": "mqttBee_UDtramHoChiMinh",
+        "broker": "8d8a17b6666448adbbbc9b0d73ddc345.s1.eu.hivemq.cloud",
+        "port": "8883",
+        "tls": "",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "3fbc50ed6e69ad2f",
+        "type": "ui_group",
+        "name": "Giám sát",
+        "tab": "87d23e39541d1c38",
+        "order": 4,
+        "disp": true,
+        "width": 7,
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "c96834b4b3c54815",
+        "type": "ui_group",
+        "name": " ",
+        "tab": "87d23e39541d1c38",
+        "order": 2,
+        "disp": true,
+        "width": 7,
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "841cf1e620ca3cfb",
+        "type": "ui_group",
+        "name": "  ",
+        "tab": "87d23e39541d1c38",
+        "order": 3,
+        "disp": true,
+        "width": 7,
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "1efbf2651ee09679",
+        "type": "mqtt-broker",
+        "name": "mqttBEE_UDtramCaMau",
+        "broker": "8d8a17b6666448adbbbc9b0d73ddc345.s1.eu.hivemq.cloud",
+        "port": "8883",
+        "tls": "",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "d982f240f263f8af",
+        "type": "ui_group",
+        "name": "Điều khiển",
+        "tab": "87d23e39541d1c38",
+        "order": 1,
+        "disp": true,
+        "width": 7,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "d1f0d7e2f3a2fc75",
+        "type": "ui_group",
+        "name": "Điều khiển",
+        "tab": "4dc1e84c1ac6c21f",
+        "order": 1,
+        "disp": true,
+        "width": 7,
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "376ba607f332bebb",
+        "type": "ui_group",
+        "name": "Manual",
+        "tab": "4dc1e84c1ac6c21f",
+        "order": 2,
+        "disp": true,
+        "width": 7,
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "auto_settings_group",
+        "type": "ui_group",
+        "name": "Auto",
+        "tab": "4dc1e84c1ac6c21f",
+        "order": 3,
+        "disp": true,
+        "width": 7,
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "d1f0d7e2f3a2fc76",
+        "type": "ui_group",
+        "name": "Giám sát",
+        "tab": "4dc1e84c1ac6c21f",
+        "order": 4,
+        "disp": true,
+        "width": 7,
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "e7a8dd49b703ecc3",
+        "type": "remote-config",
+        "name": "HaMinhDat_",
+        "host": "127.0.0.1",
+        "protocol": "http",
+        "port": "1880",
+        "baseurl": "/ui",
+        "instancehash": "mqw80yxapigkijyploruj9b0t7k3j2fqohageqlcrmd67x4wd6ndsd0okg5qzahg",
+        "server": "nodered05.remote-red.com",
+        "region": "sg"
+    },
+    {
+        "id": "87d23e39541d1c38",
+        "type": "ui_tab",
+        "name": "Trạm CÀ MAU",
+        "icon": "dashboard",
+        "order": 6,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "4dc1e84c1ac6c21f",
+        "type": "ui_tab",
+        "name": "Trạm HỒ CHÍ MINH",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "2031e1f5929c7d55",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6",
+            "node-red-contrib-remote": "2.0.3"
+        }
+    }
+]
